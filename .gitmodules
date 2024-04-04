@@ -4,3 +4,6 @@
 [submodule "containers-service"]
 	path = containers-service
 	url = git@github.com:dogkerr/containers-service.git
+[submodule "configs"]
+	path = configs
+	url = https://github.com/dogkerr/configs
