@@ -1,6 +1,6 @@
-[submodule "monitor-service"]
-	path = monitor-service
-	url = git@github.com:dogkerr/monitor-service.git
+[submodule "monitors-service"]
+	path = monitors-service
+	url = git@github.com:dogkerr/monitors-service.git
 [submodule "containers-service"]
 	path = containers-service
 	url = git@github.com:dogkerr/containers-service.git
