@@ -10,3 +10,6 @@
 [submodule "authentications-service"]
 	path = authentications-service
 	url = git@github.com:dogkerr/authentications-service.git
+[submodule "monitor-service"]
+	path = monitor-service
+	url = https://github.com/dogkerr/monitor-service
