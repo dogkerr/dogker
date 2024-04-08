@@ -10,3 +10,11 @@
 [submodule "monitor-service"]
 	path = monitor-service
 	url = git@github.com:dogkerr/monitor-service
+[submodule "/containers-service"]
+	branch = main
+[submodule "/configs"]
+	branch = main
+[submodule "/authentications-service"]
+	branch = main
+[submodule "/monitor-service"]
+	branch = main
