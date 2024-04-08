@@ -6,10 +6,10 @@
 	url = git@github.com:dogkerr/containers-service.git
 [submodule "configs"]
 	path = configs
-	url = https://github.com/dogkerr/configs
+	url = git@github.com:dogkerr/configs
 [submodule "authentications-service"]
 	path = authentications-service
 	url = git@github.com:dogkerr/authentications-service.git
 [submodule "monitor-service"]
 	path = monitor-service
-	url = https://github.com/dogkerr/monitor-service
+	url = git@github.com:dogkerr/monitor-service
