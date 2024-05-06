@@ -1,0 +1,680 @@
+{
+	"info": {
+		"_postman_id": "e0a23330-c932-4a6a-b23f-c929dcb1daed",
+		"name": "Dogker http",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30538133",
+		"_collection_link": "https://orange-comet-51695.postman.co/workspace/netflik~35c0e208-27dd-4c2a-a67f-44e4ee221c8b/collection/30538133-e0a23330-c932-4a6a-b23f-c929dcb1daed?action=share&source=collection_link&creator=30538133"
+	},
+	"item": [
+		{
+			"name": "containers_service",
+			"item": [
+				{
+					"name": "hellolintnag",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxpbnRhbmciLCJpYXQiOjE3MTQ4NDc2MDIsImV4cCI6MTcxNDg0ODUwMiwic3ViIjoiOWVmY2YyYmYtNDg5OC00OGU1LTkzOGYtYTY5YzdlMzBhYzlmIn0.H3xMSCw4kTZ5ZUybtciWcD1FGj1do1oUXaOt4R7SslFiVWbRx8vPiUSA3qhFr7ZYN11dF7aoL_ULY7E0NCZTVg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/api/v1/lalala",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"lalala"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tes login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "middleeware",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTQ4MzcyMjcsImlkIjoiYWRtaW4iLCJvcmlnX2lhdCI6MTcxNDgzMzYyN30.Il4iKAz2wn1-IUqd5XgqSoaF8YC2ZoRoXuHCzkE8pq0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8888/auth/ping",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"auth",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Lintang Birda Saputra\",\n    \"email\": \"lintang@gmail.com\",\n    \"username\": \"lintang\",\n    \"password\": \"LintangG123(\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login dogker",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"var bodyToken = responseJson.data.accessToken;",
+									"pm.environment.set(\"dogker\", bodyToken)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"username\": \"lintang\",\n    \"password\": \"LintangG123(\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/authentications",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"authentications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create container",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"go_lintang_lintang\",\n    \"image\": \"configs-go_container_log_user1:latest\",\n    \"limit\": {\n        \"cpus\": 1000,\n        \"memory\": 500\n    },\n   \n    \"replica\": 2,\n    \"endpoint\": [{\n        \"target_port\": 8232,\n        \"published_port\": 8236,\n        \"protocol\": \"tcp\"\n    }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/api/v1/containers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all user containers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"go_container_log2*\",\n    \"image\": \"configs-go_container_log_user1:latest\",\n    \"limit\": {\n        \"cpus\": -1,\n        \"memory\": 1000\n    },\n   \n    \"replica\": 1,\n    \"endpoint\": [{\n        \"target_port\": 8232,\n        \"published_port\": 8232,\n        \"protocol\": \"tcp\"\n    }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/api/v1/containers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get container",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxpbnRhbmciLCJpYXQiOjE3MTQ5MDcxMjMsImV4cCI6MTcxNDkwODAyMywic3ViIjoiYzM5YTViN2UtY2Q5NC00YjM3LWExNTgtYTUwNzM4MjMwYjg3In0.sTzST5gGKVlr20w0yAyF71WPVpVfv_nO9-gfYEH9XrG5jqgALYv3ZMjVjxNTpFvViH-yqq9nImyQ7ak2Nu_BCQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"go_container_log2*\",\n    \"image\": \"configs-go_container_log_user1:latest\",\n    \"limit\": {\n        \"cpus\": -1,\n        \"memory\": 1000\n    },\n   \n    \"replica\": 1,\n    \"endpoint\": [{\n        \"target_port\": 8232,\n        \"published_port\": 8232,\n        \"protocol\": \"tcp\"\n    }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/api/v1/containers/wz8xgwtx5w7f6u2i976zkklj9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"wz8xgwtx5w7f6u2i976zkklj9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "start container",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/api/v1/containers/3v3gqy4ck9om8algfm07menbx/start",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"3v3gqy4ck9om8algfm07menbx",
+								"start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stop service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/api/v1/containers/qnun8zweug8tjrjwtbu40mb3o/stop",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"qnun8zweug8tjrjwtbu40mb3o",
+								"stop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/api/v1/containers/ul15cjql53lhi111gv6px8kf9",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"ul15cjql53lhi111gv6px8kf9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "horizontal scaling",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"replica\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8888/api/v1/containers/8jhqbl5rv5nj23vqund4xnsrp/scale",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"8jhqbl5rv5nj23vqund4xnsrp",
+								"scale"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "schedule container",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"STOPPED\",\n    \"scheduled_time\": 10,\n    \"time_format\": \"SECOND\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8888/api/v1/containers/qnun8zweug8tjrjwtbu40mb3o/schedule",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"qnun8zweug8tjrjwtbu40mb3o",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New Folder",
+			"item": [
+				{
+					"name": "all users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:9191/api/v1/monitors/cron/usersmetrics",
+							"host": [
+								"localhost"
+							],
+							"port": "9191",
+							"path": [
+								"api",
+								"v1",
+								"monitors",
+								"cron",
+								"usersmetrics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get Metrics Prome",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5033/api/v1/monitors/metrics?userId=ebbf070f-9854-43ae-8025-b1cd40f3e7e8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5033",
+					"path": [
+						"api",
+						"v1",
+						"monitors",
+						"metrics"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "ebbf070f-9854-43ae-8025-b1cd40f3e7e8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get services",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/api/v1/monitors/services?userId=c25ed8a3-cc49-4ba2-9f3d-23c1db70ec24",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"monitors",
+						"services"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "c25ed8a3-cc49-4ba2-9f3d-23c1db70ec24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get metrics by container id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5033/api/v1/monitors/ctrMetrics?userId=ebbf070f-9854-43ae-8025-b1cd40f3e7e8&serviceId=g382l7txubuh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5033",
+					"path": [
+						"api",
+						"v1",
+						"monitors",
+						"ctrMetrics"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "ebbf070f-9854-43ae-8025-b1cd40f3e7e8"
+						},
+						{
+							"key": "serviceId",
+							"value": "g382l7txubuh"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get logs dashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9191/api/v1/monitors/dashboards/logs?userID=cb6928e7-7a7d-48a3-9aa2-86bb1cc7b8b0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"api",
+						"v1",
+						"monitors",
+						"dashboards",
+						"logs"
+					],
+					"query": [
+						{
+							"key": "userID",
+							"value": "cb6928e7-7a7d-48a3-9aa2-86bb1cc7b8b0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get monitor dashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9191/api/v1/monitors/dashboards/monitors?userID=cb6928e7-7a7d-48a3-9aa2-86bb1cc7b8b0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"api",
+						"v1",
+						"monitors",
+						"dashboards",
+						"monitors"
+					],
+					"query": [
+						{
+							"key": "userID",
+							"value": "cb6928e7-7a7d-48a3-9aa2-86bb1cc7b8b0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
