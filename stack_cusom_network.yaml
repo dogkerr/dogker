@@ -1,27 +1,33 @@
-version: "3"
+version: "3.7"
 services:
   prometheus:
     image: prom/prometheus:v2.51.1
-    container_name: prometheus
     ports:
-      - 9090:9090
+      - target: 9090
+        published: 9090
+       
+        
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - cadvisor
+    networks:
+      - world
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.49.1
-    container_name: cadvisor
     deploy:
       resources:
         limits:
           cpus: '0.4'
           memory: 300mb
     ports:
-      - 8080:8080
+      - target: 8080
+        published: 8080
+       
+        
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
@@ -31,22 +37,31 @@ services:
     devices:
       - /dev/kmsg
     privileged: true
+    networks:
+      - world
 
   pushgateway:
     image: prom/pushgateway
-    container_name: pushgateway
     deploy:
       resources:
         limits:
           cpus: '0.4'
           memory: 200mb
     ports:
-      - 9091:9091
+      - target: 9091
+        published: 9091
+       
+        
+    networks:
+      - world
+
   grafana:
     image: grafana/grafana:10.2.6
-    container_name: grafana
     ports:
-      - 3000:3000
+      - target: 3000
+        published: 3000
+       
+        
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=password
       - GF_SECURITY_ALLOW_EMBEDDING=true
@@ -56,28 +71,33 @@ services:
     depends_on:
       - prometheus
       - cadvisor
-
+    networks:
+      - world
     # loki promtail
   loki:
     image: grafana/loki:2.8.11
-    container_name: loki 
     volumes:
       - ./loki:/etc/loki
     ports:
-      - "3100:3100"
+      - target: 3100
+        published: 3100
+        mode: host
+         # harus host biar grafana bisa konek, kalo host log container ga ketangkep (localhost:3100)
     command: -config.file=/etc/loki/loki-config.yml
+    networks:
+     - world
 
   promtail:
     image: grafana/promtail:2.8.11-amd64
-    container_name: promtail
     volumes:
       - /var/log:/var/log
       - ./promtail:/etc/promtail
     command: -config.file=/etc/promtail/promtail-config.yml
-  
+    networks:
+        - world
+    
 
-  postgres:
-    container_name: dogker-postgres
+  dogker-postgres:
     image: postgres:14-alpine
     deploy:
       resources:
@@ -91,7 +111,11 @@ services:
       POSTGRES_PASSWORD: 'admin'
       POSTGRES_DB: 'dogker' # awalnya postgres
     ports:
-      - 5432:5432
+      - target: 5432
+        published: 5432
+        # mode: 
+    networks:
+      - world
 
   pg-admin:
     image: dpage/pgadmin4:8
@@ -105,37 +129,52 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=admin
       - PGADMIN_LISTEN_PORT=5050
     ports:
-      - 5050:5050
+      - target: 5050
+        published: 5050
+       
+        
+    networks:
+      - world
+
   rabbitmq:
     image: rabbitmq:3.13.1-management
-    container_name: rabbitmq
     deploy:
       resources:
         limits:
           cpus: '0.6'
           memory: 500mb
     ports:
-        - 5672:5672
-        - 15672:15672
+        - target: 5672
+          published: 5672
+         
+          # mode: 
+        - target: 15672
+          published: 15672
+          # mode: 
     volumes:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - world
 
   dkron:
     image: dkron/dkron:3.2.7
-    container_name: dkron
     deploy:
       resources:
         limits:
           cpus: '0.5'
           memory: 500mb
     ports:
-      - 9911:8080
+      - target: 8080
+        published: 9911
+       
+        
     command: agent --server --bootstrap-expect=1 --node-name=node1
+    networks:
+      - world
 
 
   monitor-service:
-    container_name: monitor-service
     image:  lintangbirdas/monitor-service:v1.1
     deploy:
       resources:
@@ -143,40 +182,50 @@ services:
           cpus: '0.4'
           memory: 300mb
     environment:
-     - GRAFANA_APIKEY=glsa_HUcrjf5XZkahDHJKqt6YlWDJidv1eOrw_5aa55412
+     - GRAFANA_APIKEY=glsa_pUIRQWbMt3iDkcwd2d0iER6UugA0JNsg_7fc06fb6
     ports: 
-      - 9191:9191
-      - 5001:5001 # grpc
+      - target: 9191
+        published: 9191
+        mode: host
     env_file:
       - monitor.env
     depends_on:
       - grafana
       - prometheus
-      - postgres
+      - dogker-postgres
       - rabbitmq
+      - loki
+    networks:
+      - world
 
 
   container-service:
-    container_name: container-service
     image: lintangbirdas/container-service:v2
     deploy:
       resources:
         limits:
-          cpus: '0.4'
+          cpus: '0.6'
           memory: 300mb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 8888:8888
+      # - 8888:8888 gakbisa
+      - target: 8888
+        published: 8888 # gak bisa
+        mode: host
+        
     env_file:
       - container.env 
     depends_on:
       - rabbitmq
-      - postgres
+      - dogker-postgres
+      - loki
+      - monitor-service
+    networks:
+      - world
       
 
   authentications:
-    container_name: "dogker-authentications"
     image: lintangbirdas/auth-service-adam:v2
     deploy:
       resources:
@@ -184,13 +233,56 @@ services:
           cpus: '0.5'
           memory: 450mb
     ports:
-      - 3001:3000
-      - 4001:4000
+      - target: 3000
+        published: 3001
+        mode: host
+      - target: 4000
+        published: 4001
+        mode: host
     depends_on:
-      - postgres
+      - dogker-postgres
+      - loki
     env_file:
       - ./auth.env
+    networks:
+      - world
+
+  check-network:
+    image: aputra/myapp-188:v3
+    networks:
+      - world
+    ports:  
+      - target: 3000
+        published: 3009
+        mode: host
 
 volumes:
   pg-data:
 
+networks:
+  world:
+
+
+
+
+
+
+
+
+
+
+## gak bisa yg dibawah
+    # external: false
+# networks:
+#   dogker_overlay1:
+#     # driver: overlay #gak bisa jg
+#     # driver: bridge gak bisa
+#     attachable: true
+#     ipam:
+#       config:
+#         - subnet: "10.30.30.0/24"
+#           # gateway: "10.0.0.1"
+
+# # --subnet 10.0.9.0/24 \
+ # --gateway 10.0.9.99 \
+ # dogker_overlay1

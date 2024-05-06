@@ -7,12 +7,7 @@ isi filenya:
 
 {
    "metrics-addr": "0.0.0.0:9323",
-   "experimental": true,
-   "log-driver": "loki",
-    "log-opts": {
-        "loki-url": "http://localhost:3100/loki/api/v1/push",
-        "loki-batch-size": "400"
-    }
+   "experimental": true
 
 }
 2. docker plugin install grafana/loki-docker-driver:2.9.4 --alias loki --grant-all-permissions
