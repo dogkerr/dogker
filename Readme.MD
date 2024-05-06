@@ -1,4 +1,4 @@
-### Cara testing rabbitmq
+### Cara jalanin dogker microservices
 
 ##### setup docker
 ```
@@ -24,8 +24,8 @@ isi filenya:
 1.allow firewall port https://docs.docker.com/engine/swarm/swarm-tutorial/
 2. docker compose  -f stack-dogker_benar.yaml up -d
 
-3.  buka grafana , tambah datasource prometheus (urlnya http://prometheus:9090).
-4. buat service account & access tokennya, copy token ke .env monitor-service
+3.  buka grafana , tambah datasource prometheus (urlnya http://prometheus:9090). dan tambahin datasource loki (urlnya http://loki:3100)
+4. buat service account & access tokennya, copy token ke environements service compose monitor-service
 5. docker compose  -f stack-dogker_benar.yaml up -d , lagi
 ```
 
