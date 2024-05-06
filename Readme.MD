@@ -26,16 +26,6 @@ isi filenya:
 
 
 ```
-1. docker pull lintangbirdas/go_log:v1 
-2. docker pull lintangbirdas/monitor-service:v1
-3. buat folder pb
-4. buat .env isinya samain .env.example
-5. generate protobuf code `make proto`
-
-```
-
-
-```
 1.allow firewall port https://docs.docker.com/engine/swarm/swarm-tutorial/
 2. docker compose  -f stack-dogker_benar.yaml up -d
 
