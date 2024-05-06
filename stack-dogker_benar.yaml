@@ -1,0 +1,197 @@
+version: "3"
+services:
+  prometheus:
+    image: prom/prometheus:v2.51.1
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - cadvisor
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    container_name: cadvisor
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: 300mb
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg
+    privileged: true
+
+  pushgateway:
+    image: prom/pushgateway
+    container_name: pushgateway
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: 200mb
+    ports:
+      - 9091:9091
+  grafana:
+    image: grafana/grafana:10.2.6
+    container_name: grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=password
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_NAME=Main Org.
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+    depends_on:
+      - prometheus
+      - cadvisor
+
+    # loki promtail
+  loki:
+    image: grafana/loki:2.8.11-amd64
+    container_name: loki 
+    volumes:
+      - ./loki:/etc/loki
+    ports:
+      - "3100:3100"
+    
+    command: -config.file=/etc/loki/loki-config.yml
+
+  promtail:
+    image: grafana/promtail:2.8.11-amd64
+    container_name: promtail
+    volumes:
+      - /var/log:/var/log
+      - ./promtail:/etc/promtail
+    command: -config.file=/etc/promtail/promtail-config.yml
+  
+
+  postgres:
+    container_name: dogker-postgres
+    image: postgres:14-alpine
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 700mb
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'dogker' # awalnya postgres
+    ports:
+      - 5432:5432
+
+  pg-admin:
+    image: dpage/pgadmin4:8
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 600mb
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@email.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=5050
+    ports:
+      - 5050:5050
+  rabbitmq:
+    image: rabbitmq:3.13.1-management
+    container_name: rabbitmq
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 500mb
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+
+  dkron:
+    image: dkron/dkron:3.2.7
+    container_name: dkron
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 500mb
+    ports:
+      - 9911:8080
+    command: agent --server --bootstrap-expect=1 --node-name=node1
+
+
+  monitor-service:
+    container_name: monitor-service
+    image:  lintangbirdas/monitor-service:v1.1
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: 300mb
+    environment:
+     - GRAFANA_APIKEY=glsa_pUIRQWbMt3iDkcwd2d0iER6UugA0JNsg_7fc06fb6
+    ports: 
+      - 9191:9191
+      - 5001:5001 # grpc
+    env_file:
+      - monitor.env
+    depends_on:
+      - grafana
+      - prometheus
+
+
+  container-service:
+    container_name: container-service
+    image: lintangbirdas/container-service:v2
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: 300mb
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 8888:8888
+    env_file:
+      - container.env 
+    depends_on:
+      - rabbitmq
+      - postgres
+
+  authentications:
+    container_name: "dogker-authentications"
+    image: lintangbirdas/auth-service-adam:v2
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 450mb
+    ports:
+      - 3001:3000
+      - 4001:4000
+    # volumes:
+    #   - ./src:/app/src
+      # - ./protos:/app/src
+    depends_on:
+      - postgres
+    env_file:
+      - ./auth.env
+
+volumes:
+  pg-data:
+

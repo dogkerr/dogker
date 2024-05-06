@@ -1,0 +1,251 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "d0b05ea5-6e3d-4197-94a1-77e4d63d339c"
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "d0b05ea5-6e3d-4197-94a1-77e4d63d339c"
+          },
+          "editorMode": "builder",
+          "expr": "{container_name=\"$container_name\"} |= `$search_filter` | json | level = `$Levels` | method = `$Method`",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Explore Logs By Search, Levels, Container Name,  Method, and Time Range",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "d0b05ea5-6e3d-4197-94a1-77e4d63d339c"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 2,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "d0b05ea5-6e3d-4197-94a1-77e4d63d339c"
+          },
+          "editorMode": "builder",
+          "expr": "{container_name=\"$container_name\"} |= `$search_filter`",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Explore Logs By Container and By Search",
+      "type": "logs"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "hide": 0,
+        "name": "search_filter",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "info",
+          "value": "info"
+        },
+        "description": "Log Levels (warn, debug, info, error)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Levels",
+        "multi": false,
+        "name": "Levels",
+        "options": [
+          {
+            "selected": false,
+            "text": "warn",
+            "value": "warn"
+          },
+          {
+            "selected": false,
+            "text": "debug",
+            "value": "debug"
+          },
+          {
+            "selected": true,
+            "text": "info",
+            "value": "info"
+          },
+          {
+            "selected": false,
+            "text": "error",
+            "value": "error"
+          }
+        ],
+        "query": "warn,debug,info,error",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "go_container_api_user2",
+          "value": "go_container_api_user2"
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "d0b05ea5-6e3d-4197-94a1-77e4d63d339c"
+        },
+        "definition": "",
+        "description": "container_name",
+        "hide": 0,
+        "includeAll": false,
+        "label": "container_name",
+        "multi": false,
+        "name": "container_name",
+        "options": [],
+        "query": {
+          "label": "container_name",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "{userId=\"18d2e020-538d-449a-8e9c-011212999\"}",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "GET",
+          "value": "GET"
+        },
+        "description": "HTTP Method",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Method",
+        "multi": false,
+        "name": "Method",
+        "options": [
+          {
+            "selected": true,
+            "text": "GET",
+            "value": "GET"
+          },
+          {
+            "selected": false,
+            "text": "POST",
+            "value": "POST"
+          },
+          {
+            "selected": false,
+            "text": "PATCH",
+            "value": "PATCH"
+          },
+          {
+            "selected": false,
+            "text": "PUT",
+            "value": "PUT"
+          },
+          {
+            "selected": false,
+            "text": "DELETE",
+            "value": "DELETE"
+          }
+        ],
+        "query": "GET,POST,PATCH,PUT,DELETE",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "logs loki per user",
+  "uid": "ddhay47ssipz4b",
+  "version": 3,
+  "weekStart": ""
+}
