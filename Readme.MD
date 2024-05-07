@@ -51,6 +51,7 @@ nama queue: monitor-billing
 ##### cron job dkron
 9. buat cron di dkron
 ```
+sh ./setup_dkron.sh
 curl localhost:9911/v1/jobs -XPOST -d @scheduled_metrics_jobs.json
 ```
 

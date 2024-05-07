@@ -122,17 +122,21 @@ services:
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
 
   dkron:
-    image: dkron/dkron:3.2.7
+    image: dkron/dkron:4.0.0-beta5
     container_name: dkron
     deploy:
       resources:
         limits:
           cpus: '0.5'
           memory: 500mb
+    volumes:
+      - ./dkron_curl.sh:/curl/curl.sh
     ports:
       - 9911:8080
-    command: agent --server --bootstrap-expect=1 --node-name=node1
-
+    command: >
+      agent --server --bootstrap-expect=1 --node-name=node1
+  
+ 
 
   monitor-service:
     container_name: monitor-service
@@ -173,6 +177,7 @@ services:
     depends_on:
       - rabbitmq
       - postgres
+      - dkron
       
 
   authentications:
