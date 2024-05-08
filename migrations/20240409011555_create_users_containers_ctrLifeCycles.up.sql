@@ -33,10 +33,9 @@ CREATE TABLE container_metrics (
     cpus FLOAT NOT NULL,
     memory FLOAT NOT NULL,
     network_ingress FlOAT NOT NULL,
-    network_egress FLOAT NOT NULL
+    network_egress FLOAT NOT NULL,
+    created_time timestamp with time zone  DEFAULT NOW() NOT NULL
 );
-
-
 
 
 
