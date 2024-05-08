@@ -52,7 +52,6 @@ nama queue: monitor-billing
 9. buat cron di dkron
 ```
 sh ./setup_dkron.sh
-curl localhost:9911/v1/jobs -XPOST -d @scheduled_metrics_jobs.json
 ```
 
 #### Consume Rabbitmq
@@ -60,3 +59,23 @@ curl localhost:9911/v1/jobs -XPOST -d @scheduled_metrics_jobs.json
 consume rabbitmq message dg cara jalanin repo example_rabbitmq
 ````
 
+
+#### Setup minIO buat upload src_code & dockerfile , lalu build image & create container based on uploaded dockerfile
+```
+1. buka localhost:9001
+2. login pake username=lintang, password=lintang123
+3. buka menu access key tambahin accesskey sama secret key
+4. copy accesskey dan secret key ke  env containerservice
+
+contoh:
+
+# MINIO
+BASE_URL_MINIO=minio:9000
+ACC_KEY_MINIO=kIiDoM7RUmofIPTyQlQQ
+SECRET_KEY_MINIO=I2ZJHJuGwYojd5yG47gmsdkNyTpnfrlhFALNhSeG
+
+
+```
+
+#### Troubleshooting
+1. kalau container-service & monitor service mati, tinggal  ' docker compose  -f stack-dogker_benar.yaml up -d' berkali kali aja sampai running karena emang startup golang lebih cepet dari postgres jadi golangnya belum sempet connect sama postgres

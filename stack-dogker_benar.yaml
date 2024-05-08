@@ -82,8 +82,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.6'
-          memory: 700mb
+          cpus: '2'
+          memory: 2000mb
     volumes:
       - pg-data:/var/lib/postgresql/data
     environment:
@@ -147,7 +147,7 @@ services:
           cpus: '0.4'
           memory: 300mb
     environment:
-     - GRAFANA_APIKEY=glsa_HUcrjf5XZkahDHJKqt6YlWDJidv1eOrw_5aa55412
+     - GRAFANA_APIKEY=glsa_CGvAxm0wwXbQbXaZZtMfRMRQ8W9hVOh6_7d69aec3
     ports: 
       - 9191:9191
       - 5001:5001 # grpc
@@ -166,14 +166,16 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.4'
-          memory: 300mb
+          cpus: '3'
+          memory: 2000mb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 8888:8888
     env_file:
       - container.env 
+    environment:
+      - APP_LEVEL=production
     depends_on:
       - rabbitmq
       - postgres
@@ -186,8 +188,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 450mb
+          cpus: '3'
+          memory: 2000mb
     ports:
       - 3001:3000
       - 4001:4000
@@ -195,6 +197,20 @@ services:
       - postgres
     env_file:
       - ./auth.env
+  
+  minio:
+    container_name: minio
+    image: quay.io/minio/minio
+    ports: 
+      - 9000:9000
+      - 9001:9001
+    environment:
+      - MINIO_ROOT_USER=lintang
+      - MINIO_ROOT_PASSWORD=lintang123
+    user: 1000:1000
+    volumes:  
+      - ${HOME}/minio/data:/data
+    command: server /data --console-address ":9001"
 
 volumes:
   pg-data:

@@ -1,0 +1,14 @@
+{
+  "name": "k6",
+  "version": "1.0.0",
+  "description": "##### setup docker ``` 1.sudo nano /etc/docker/daemon.json (linux) atau ~/.docker/daemon.json kalo di macos isi filenya:",
+  "main": "k6_container_service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "k6": "^0.0.0"
+  }
+}
