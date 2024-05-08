@@ -1,5 +1,5 @@
 -- CREATE EXTENSION IF NOT EXISTS 'uuid-ossp';
-CREATE TYPE container_status AS ENUM ('RUN', 'STOPPED');
+CREATE TYPE container_status AS ENUM ('RUN', 'STOP');
 
 
 CREATE TABLE containers (
@@ -27,6 +27,16 @@ CREATE TABLE container_lifecycles (
     replica INT NOT NULL
 );
 
+CREATE TABLE container_metrics (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY ,
+    container_id UUID NOT NULL,
+    cpus FLOAT NOT NULL,
+    memory FLOAT NOT NULL,
+    network_ingress FlOAT NOT NULL,
+    network_egress FLOAT NOT NULL
+);
+
+
 
 
 
@@ -37,6 +47,10 @@ ALTER TABLE container_lifecycles ADD  CONSTRAINT fk_lifecycles_containers
 ALTER TABLE containers ADD CONSTRAINT fk_containers_users
     FOREIGN KEY (user_id) 
     REFERENCES users(id);
+
+ALTER TABLE container_metrics ADD CONSTRAINT fk_container_metrics 
+    FOREIGN KEY (container_id)
+    REFERENCES containers(id);
 
 
 -- INSERT INTO users( username, email, fullname, password) 
