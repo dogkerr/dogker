@@ -38,6 +38,7 @@ isi filenya:
 ```
 
 
+
 ###### rabbitmq
 8. bikin queue  & binding queuee
 ```
@@ -60,7 +61,16 @@ consume rabbitmq message dg cara jalanin repo example_rabbitmq
 ````
 
 
-#### Setup minIO buat upload src_code & dockerfile , lalu build image & create container based on uploaded dockerfile
+#### cara test alerting prometheus ketika container user mati
+```
+1. buat container/swarm service (cuma 1 aja replicanya) lewat endpoint create container di postman
+2. copy id dari cotnainer swarm service dg cara:   docker ps -a -f "name=<bagian_dari_nama_swarm_service>"
+3. stop container yg abis dibuat: docker stop <id_container>
+```
+
+
+
+#### Setup minIO buat upload src_code & dockerfile , lalu build image & create container based on uploaded dockerfile (buat endpoint create container from source code tarfile & dockerfile)
 ```
 1. buka localhost:9001
 2. login pake username=lintang, password=lintang123

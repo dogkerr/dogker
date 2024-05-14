@@ -8,7 +8,9 @@ services:
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus.rules.yml:/etc/prometheus/prometheus.rules.yml
+      - ./prometheus/alerting.yml:/etc/prometheus/alerting.yml
     depends_on:
       - cadvisor
 
@@ -30,6 +32,8 @@ services:
       - /dev/disk/:/dev/disk:ro
     devices:
       - /dev/kmsg
+    labels:
+      - prometheus-job=cadvisor
     privileged: true
 
   pushgateway:
@@ -53,10 +57,11 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_NAME=Main Org.
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+    volumes: 
+      - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
       - cadvisor
-
     # loki promtail
   loki:
     image: grafana/loki:2.8.11
@@ -76,14 +81,28 @@ services:
     command: -config.file=/etc/promtail/promtail-config.yml
   
 
+  alert-manager: # buat alerting pas autoscaling/container down
+    image: prom/alertmanager
+    volumes:
+      - "./alertmanager/alertmanager.yml:/alertmanager/alertmanager.yml"
+    ports:
+      - 9093:9093
+    command:  --config.file=/alertmanager/alertmanager.yml
+
+  node-exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    ports:
+      - 9100:9100
+
   postgres:
     container_name: dogker-postgres
     image: postgres:14-alpine
     deploy:
       resources:
         limits:
-          cpus: '0.6'
-          memory: 700mb
+          cpus: '2'
+          memory: 2000mb
     volumes:
       - pg-data:/var/lib/postgresql/data
     environment:
@@ -100,12 +119,16 @@ services:
         limits:
           cpus: '0.6'
           memory: 600mb
+    volumes:
+      -  pgadmin-data:/var/lib/pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@email.com
       - PGADMIN_DEFAULT_PASSWORD=admin
       - PGADMIN_LISTEN_PORT=5050
     ports:
       - 5050:5050
+    
+
   rabbitmq:
     image: rabbitmq:3.13.1-management
     container_name: rabbitmq
@@ -131,6 +154,7 @@ services:
           memory: 500mb
     volumes:
       - ./dkron_curl.sh:/curl/curl.sh
+      - dkron-data:/dkron.data
     ports:
       - 9911:8080
     command: >
@@ -147,7 +171,7 @@ services:
           cpus: '0.4'
           memory: 300mb
     environment:
-     - GRAFANA_APIKEY=glsa_TRAXjvEWeA8J2LixL89DAxhpsH9NFxWv_f7a83b40
+     - GRAFANA_APIKEY=glsa_2u2yFm2fLTn9rBcoETuNh5EwLscCIV6C_5ad395a8
     ports: 
       - 9191:9191
       - 5001:5001 # grpc
@@ -214,4 +238,6 @@ services:
 
 volumes:
   pg-data:
-
+  dkron-data:
+  pgadmin-data:
+  grafana-data:
