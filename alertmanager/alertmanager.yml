@@ -10,12 +10,35 @@
 #     - to: 'email@example.com'
 
 
-
+#ref : https://samber.github.io/awesome-prometheus-alerts/alertmanager
 #  webhook alertmanager
 global:
-  resolve_timeout: 10s
+  resolve_timeout: 10s #1m gabisa
 route:
   receiver: webhook_receiver_emailing_service
+  # dokumentasi prometheus alertmanager gajelas cok ajg, kadang webhooknya kekirim kadang enggak
+
+
+
+  # gakbisa semua cok group_wait,group_itv, repeat_itv 
+  # group_wait: 12s
+  # group_interval: 10s
+  # repeat_interval: 30m # 
+  # gak bisa yg bawah ini cok
+  # group_wait: 10s
+  # group_interval: 15s
+  # repeat_interval: 30m # 
+  #repeat interval doang gabisa
+  #repeat_interval: 14s
+
+  # YANG BAWAH GAKBISA
+  # group_interval: 10s
+  # repeat_interval: 10s
+
+  # group_wait: 5s  # ini waktu tunggu dispatch notifiactions
+  
+  # This means that if group_wait is set to 30s, the alert manager will buffer the alert notification for 30 seconds, waiting for other potential notifications to be appended to the buffered notification. Once the group_wait time expires, the notification is finally s
+  # group_interval: 13s #  INI BIKIN NOTIFIKASI DIKRIM BERULANG KALI  padahal gak ada container yg down
   # routes:
     # -  receiver: webhook_webhook_site # ini gak usah diaktifin
     #    continue: true
@@ -26,7 +49,7 @@ receivers:
     - name: webhook_receiver_emailing_service
       webhook_configs:
         - url: http://example_webhook_prome:9898/api/v1/email/down # http://mailing-service:8555 # anggap 8555 port mailing service  #'https://webhook.site/7d37e2ff-560c-4279-9b23-26681123a10a' #container-service:8888
-          send_resolved: false
+          send_resolved: true
      # - name: webhook_webhook_site # ini gak usah diaktifin, cuma buat tes di website webhook.site, kalau mau diaktifin harus sering  sering hit get endpoint url yang dikasih webhook.site
     #   webhook_configs:
     #     - url: https://webhook.site/7d37e2ff-560c-4279-9b23-26681123a10a # ganti dg url yang dikasih webhook.site (ini url buat laptopku)
