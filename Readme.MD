@@ -89,7 +89,23 @@ SECRET_KEY_MINIO=I2ZJHJuGwYojd5yG47gmsdkNyTpnfrlhFALNhSeG
 
 #### cara deploy pake swarm stack
 ```
- docker stack deploy -c  stack-dogker_benar_swarm.yaml stack_dogker2 --detach=true
+ 1. docker stack deploy -c  stack-dogker_benar_swarm.yaml stack_dogker2 --detach=true
+ 2. make migrate-up
+ 3.   buka grafana , tambah datasource prometheus (urlnya http://prometheus:9090). dan tambahin datasource loki (urlnya http://loki:3100)
+ 4. buat service account & access tokennya, copy token ke environements service compose monitor-service
+ 5.  docker stack deploy -c  stack-dogker_benar_swarm.yaml stack_dogker2 --detach=true 
+ 6.  sh ./setup_dkron_swarm.sh
+ 7. import postman collectionnya , terus jalanin request ke beberapa endpointnya
+ 8. bikin queue  & binding queuee
+
+nama queue=monitor-billing, type: Quorum
+queue binding utk monitor-billing:
+exchangeName: monitor-billing
+routingkey: monitor.billing.all_users
+nama queue: monitor-billing
+
+
+
 ```
 
 

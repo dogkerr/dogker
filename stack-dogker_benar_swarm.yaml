@@ -2,6 +2,8 @@ version: "3.9"
 services:
   prometheus:
     image: prom/prometheus #v2.51.1
+    networks:
+      - dogker
     container_name: prometheus
     ports:
       - published: 9090
@@ -17,6 +19,8 @@ services:
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.49.1
+    networks:
+      - dogker
     container_name: cadvisor
     deploy:
       resources:
@@ -40,6 +44,8 @@ services:
 
   pushgateway:
     image: prom/pushgateway
+    networks:
+      - dogker
     container_name: pushgateway
     deploy:
       resources:
@@ -51,6 +57,8 @@ services:
         target: 9091
   grafana:
     image: grafana/grafana:10.2.6
+    networks:
+      - dogker
     container_name: grafana
     ports:
       - published: 3000
@@ -69,6 +77,8 @@ services:
     # loki promtail
   loki:
     image: grafana/loki:2.8.11
+    networks:
+      - dogker
     container_name: loki 
     volumes:
       - ./loki:/etc/loki
@@ -79,6 +89,8 @@ services:
 
   promtail:
     image: grafana/promtail:2.8.11-amd64
+    networks:
+      - dogker
     container_name: promtail
     volumes:
       - /var/log:/var/log
@@ -97,12 +109,16 @@ services:
 
   node-exporter:
     image: prom/node-exporter
+    networks:
+      - dogker
     container_name: node-exporter
     ports:
       - published: 9100
         target: 9100
 
   postgres:
+    networks:
+      - dogker
     container_name: dogker-postgres
     image: postgres:14-alpine
     deploy:
@@ -140,6 +156,8 @@ services:
       
   rabbitmq:
     image: rabbitmq:3.13.1-management
+    networks:
+      - dogker
     container_name: rabbitmq
     deploy:
       resources:
@@ -160,6 +178,8 @@ services:
 
   dkron:
     image: dkron/dkron:4.0.0-beta5
+    networks:
+      - dogker
     container_name: dkron
     deploy:
       resources:
@@ -177,6 +197,8 @@ services:
 
 
   monitor-service:
+    networks:
+      - dogker
     container_name: monitor-service
     image:  lintangbirdas/monitor-service:v1.1-swarm
     deploy:
@@ -204,6 +226,8 @@ services:
 
 
   container-service:
+    networks:
+      - dogker
     container_name: container-service
     image: lintangbirdas/container-service:v2-swarm
     deploy:
@@ -229,6 +253,8 @@ services:
       - authentications
 
   authentications:
+    networks:
+      - dogker
     container_name: "dogker-authentications"
     image: lintangbirdas/auth-service-adam:v2-swarm
     deploy:
@@ -257,6 +283,8 @@ services:
 
   
   minio:
+    networks:
+      - dogker
     container_name: minio
     image: quay.io/minio/minio
     ports: 
@@ -274,7 +302,9 @@ services:
 
 
 
-
+networks:
+  dogker:
+    driver: overlay
 
 volumes:
   pg-data:
