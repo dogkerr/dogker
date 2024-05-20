@@ -87,5 +87,11 @@ SECRET_KEY_MINIO=I2ZJHJuGwYojd5yG47gmsdkNyTpnfrlhFALNhSeG
 
 ```
 
+#### cara deploy pake swarm stack
+```
+ docker stack deploy -c  stack-dogker_benar_swarm.yaml stack_dogker2 --detach=true
+```
+
+
 #### Troubleshooting
 1. kalau container-service & monitor service mati, tinggal  ' docker compose  -f stack-dogker_benar.yaml up -d' berkali kali aja sampai running karena emang startup golang lebih cepet dari postgres jadi golangnya belum sempet connect sama postgres

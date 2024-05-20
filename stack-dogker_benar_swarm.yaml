@@ -1,10 +1,11 @@
-version: "3"
+version: "3.9"
 services:
   prometheus:
     image: prom/prometheus #v2.51.1
     container_name: prometheus
     ports:
-      - 9090:9090
+      - published: 9090
+        target: 9090
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     volumes:
@@ -20,10 +21,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.4'
+          # cpus: "0.4"
           memory: 300mb
     ports:
-      - 8080:8080
+      - published: 8080
+        target: 8080
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
@@ -42,15 +44,17 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.4'
+          # cpus: "0.4"
           memory: 200mb
     ports:
-      - 9091:9091
+      - published: 9091
+        target: 9091
   grafana:
     image: grafana/grafana:10.2.6
     container_name: grafana
     ports:
-      - 3000:3000
+      - published: 3000
+        target: 3000
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=password
       - GF_SECURITY_ALLOW_EMBEDDING=true
@@ -69,7 +73,8 @@ services:
     volumes:
       - ./loki:/etc/loki
     ports:
-      - "3100:3100"
+      - published: 3100
+        target: 3100
     command: -config.file=/etc/loki/loki-config.yml
 
   promtail:
@@ -86,14 +91,16 @@ services:
     volumes:
       - "./alertmanager/alertmanager.yml:/alertmanager/alertmanager.yml"
     ports:
-      - 9093:9093
+      - published: 9093
+        target: 9093
     command:  --config.file=/alertmanager/alertmanager.yml
 
   node-exporter:
     image: prom/node-exporter
     container_name: node-exporter
     ports:
-      - 9100:9100
+      - published: 9100
+        target: 9100
 
   postgres:
     container_name: dogker-postgres
@@ -101,7 +108,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          # cpus: "2"
           memory: 2000mb
     volumes:
       - pg-data:/var/lib/postgresql/data
@@ -110,14 +117,15 @@ services:
       POSTGRES_PASSWORD: 'admin'
       POSTGRES_DB: 'dogker' # awalnya postgres
     ports:
-      - 5432:5432
+      - published: 5432
+        target: 5432
 
   pg-admin:
     image: dpage/pgadmin4:8
     deploy:
       resources:
         limits:
-          cpus: '0.6'
+          # cpus: "0.6"
           memory: 600mb
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@email.com
@@ -126,7 +134,8 @@ services:
     # volumes:
       # -  pgadmin-data:/var/lib/pgadmin
     ports:
-      - 5050:5050
+      - published: 5050
+        target: 5050
 
       
   rabbitmq:
@@ -135,11 +144,16 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.6'
+          # cpus: "0.6"
           memory: 500mb
     ports:
-        - 5672:5672
-        - 15672:15672
+      - target: 5672
+        published: 5672
+         
+          # mode: 
+      - target: 15672
+        published: 15672
+          # mode: 
     volumes:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
@@ -150,13 +164,14 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          # cpus: "0.5"
           memory: 500mb
     volumes:
       - ./dkron_curl.sh:/curl/curl.sh
       - dkron-data:/dkron.data
     ports:
-      - 9911:8080
+      - published: 9911
+        target: 8080
     command: >
       agent --server --bootstrap-expect=1 --node-name=node1
 
@@ -167,20 +182,25 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.4'
+          # cpus: "0.4"
           memory: 300mb
     environment:
-     - GRAFANA_APIKEY=glsa_2u2yFm2fLTn9rBcoETuNh5EwLscCIV6C_5ad395a8
+     - GRAFANA_APIKEY=glsa_l13847KT0vmVIspxnkZZG3rqDrB3Z6AD_656b8a35
+    # volumes: 
+    #  - ./monitor_swarm.env:/bin/.env # sama aja
     ports: 
-      - 9191:9191
-      - 5001:5001 # grpc
-    env_file:
-      - monitor.env
+      - published: 9191
+        target: 9191
+      - published: 5001
+        target: 5001 # grpc
+    # env_file:
+      # - monitor_swarm.env
     depends_on:
       - grafana
       - prometheus
       - postgres
       - rabbitmq
+      - authentications
 
 
   container-service:
@@ -189,48 +209,61 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '3'
+          # cpus: '3'
           memory: 2000mb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      # - ./container_swarm.env:/bin/.env # sama aja 
     environment:
       - PG_URL=stack_dogker2_postgres:5432
       - APP_LEVEL=production
     ports:
-      - 8888:8888
-    env_file:
-      - container.env 
-    
+      - published: 8888
+        target: 8888
+    # env_file:
+      # - ./container_swarm.env 
     depends_on:
       - rabbitmq
       - postgres
       - dkron
-      
+      - authentications
 
   authentications:
     container_name: "dogker-authentications"
-    image: lintangbirdas/auth-service-adam:v2
+    image: lintangbirdas/auth-service-adam:v2-swarm
     deploy:
       resources:
         limits:
-          cpus: '3'
+          # cpus: "3"
           memory: 2000mb
     ports:
-      - 3001:3000
-      - 4001:4000
+      - published: 3001
+        target: 3000
+      - published: 4001
+        target: 4000
     depends_on:
       - postgres
     environment:
       -  POSTGRES_HOST=stack_dogker2_postgres
-    env_file:
-      - ./auth.env
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_PORT=5432
+      - POSTGRES_DATABASE=dogker
+      - ACCESS_TOKEN_ALGORITHM=ES512
+      - JWT_PRIVATE_KEY=-----BEGIN EC PRIVATE KEY-----\nMIHcAgEBBEIB7Dwpk55oVgPcVjTU5P4M5FsmBj6GGn1aMaQbjZQL4jBDKY2I34+G\nAhRoTVHowSaSpv9oKbmBqlNzcCsqInV6lpCgBwYFK4EEACOhgYkDgYYABACh3HAV\n2IUpZMb9lTu9c92TyjH6c1TUmbGyYjyLy1ith/pDGbAHPXeNL89mxvx0lswVjdhM\nwyKHpIrPt75xDrwhuADsGdjl9gVARPhI0dVf/NofonvQREkuxGtquZZJew1sxuep\neUiSiithd4Cf2+wtuv9E/D0NhqirgmtD44axzgsczA==\n-----END EC PRIVATE KEY-----\n
+      - JWT_PUBLIC_KEY=-----BEGIN PUBLIC KEY-----\nMIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQAodxwFdiFKWTG/ZU7vXPdk8ox+nNU\n1JmxsmI8i8tYrYf6QxmwBz13jS/PZsb8dJbMFY3YTMMih6SKz7e+cQ68IbgA7BnY\n5fYFQET4SNHVX/zaH6J70ERJLsRrarmWSXsNbMbnqXlIkoorYXeAn9vsLbr/RPw9\nDYaoq4JrQ+OGsc4LHMw=\n-----END PUBLIC KEY-----\n
+      - REFRESH_TOKEN_ALGORITHM=HS256
+      - REFRESH_TOKEN_SECRET=coX0s+/NKBQEnZMFcjtWrwYcwydOCcWHYV8Vtq2SsLjWVaGrtJBhmnJ70yD/9n74crZrEBgZEYs8XCIIERcVMSWSJGhJHQ8HimcJ9tmt8S2ZO8UVB5Mq2UzLCsCtDq8m4J9JXWk5qS5QTlIzW5t3d4m7DIqFMEikOUSp8MMgk+oXkH1stoYbXKSk8i7RJOHpPKLQRMFNOXLhv7xi+f9TEuRxFAvsjUGb4JsrxaICBf6LCXznKic4WJ0tZPLq98wW3zgxOVPjJPgDxiEAyYIZa1b/nZ0iZSJtnrCKvhamdqZkiYxW0ikZWa7TnTkGi3pZFJMqbW72VPBRl+059ZvOzA==
+
   
   minio:
     container_name: minio
     image: quay.io/minio/minio
     ports: 
-      - 9000:9000
-      - 9001:9001
+      - published: 9000
+        target: 9000
+      - published: 9001
+        target: 9001
     environment:
       - MINIO_ROOT_USER=lintang
       - MINIO_ROOT_PASSWORD=lintang123
@@ -240,15 +273,7 @@ services:
     command: server /data --console-address ":9001"
 
 
-  example_webhook_prome:
-    container_name: example_webhook_prome
-    image: lintangbirdas/example_webhook_dogker:v1
-    ports:
-      - 9898:9898
-    environment:
-      - APP_LEVEL=production
-    depends_on:
-      - rabbitmq
+
 
 
 volumes:
