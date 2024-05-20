@@ -163,7 +163,7 @@ services:
 
   monitor-service:
     container_name: monitor-service
-    image:  lintangbirdas/monitor-service:v1.1
+    image:  lintangbirdas/monitor-service:v1.1-swarm
     deploy:
       resources:
         limits:
@@ -185,7 +185,7 @@ services:
 
   container-service:
     container_name: container-service
-    image: lintangbirdas/container-service:v2
+    image: lintangbirdas/container-service:v2-swarm
     deploy:
       resources:
         limits:
@@ -194,6 +194,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
+      - PG_URL=stack_dogker2_postgres:5432
       - APP_LEVEL=production
     ports:
       - 8888:8888
@@ -219,6 +220,8 @@ services:
       - 4001:4000
     depends_on:
       - postgres
+    environment:
+      -  POSTGRES_HOST=stack_dogker2_postgres
     env_file:
       - ./auth.env
   
