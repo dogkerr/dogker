@@ -1,12 +1,17 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TYPE container_status AS ENUM ('RUN', 'STOP');
 
+CREATE TYPE service_status AS ENUM('CREATED', 'RUN', 'STOPPED', 'TERMINATED');
+
+
+
+
 
 CREATE TABLE containers (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY ,
     user_id UUID NOT NULL,
     image VARCHAR(255) NOT NULL,
-    status container_status NOT NULL,
+    status service_status NOT NULL,
     name VARCHAR(255) NOT NULL,
     container_port int NOT NULL,
     public_port int,
