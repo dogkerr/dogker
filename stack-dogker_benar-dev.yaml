@@ -1,7 +1,7 @@
 version: "3"
 services:
   prometheus:
-    image: prom/prometheus:v2.51.1
+    image: prom/prometheus #v2.51.1
     container_name: prometheus
     ports:
       - 9090:9090
@@ -119,16 +119,16 @@ services:
         limits:
           cpus: '0.6'
           memory: 600mb
-    volumes:
-      -  pgadmin-data:/var/lib/pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@email.com
       - PGADMIN_DEFAULT_PASSWORD=admin
       - PGADMIN_LISTEN_PORT=5050
+    # volumes:
+      # -  pgadmin-data:/var/lib/pgadmin
     ports:
       - 5050:5050
-    
 
+      
   rabbitmq:
     image: rabbitmq:3.13.1-management
     container_name: rabbitmq
@@ -159,12 +159,11 @@ services:
       - 9911:8080
     command: >
       agent --server --bootstrap-expect=1 --node-name=node1
-  
- 
+
 
   monitor-service:
     container_name: monitor-service
-    image:  lintangbirdas/monitor-service-dev:v1.1
+    image:  lintangbirdas/monitor-service-dev:v1
     deploy:
       resources:
         limits:
@@ -172,11 +171,11 @@ services:
           memory: 300mb
     environment:
      - GRAFANA_APIKEY=glsa_2u2yFm2fLTn9rBcoETuNh5EwLscCIV6C_5ad395a8
+     - APP_LEVEL=production
     ports: 
       - 9191:9191
+      - 8953:8953
       - 5001:5001 # grpc
-    env_file:
-      - monitor.env
     depends_on:
       - grafana
       - prometheus
@@ -186,23 +185,25 @@ services:
 
   container-service:
     container_name: container-service
-    image: lintangbirdas/container-service-dev:v2
+    image: lintangbirdas/container-service-dev:v1
     deploy:
       resources:
         limits:
-          cpus: '0.4'
-          memory: 300mb
+          cpus: '3'
+          memory: 2000mb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - APP_LEVEL=production
+      - AUTH_URL=dogker-authentications:4000
     ports:
       - 8888:8888
-    env_file:
-      - container.env 
+      - 6969:6969
+      - 6666:6666
     depends_on:
       - rabbitmq
       - postgres
       - dkron
-      - monitor-service
       
 
   authentications:
@@ -211,8 +212,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 450mb
+          cpus: '3'
+          memory: 2000mb
     ports:
       - 3001:3000
       - 4001:4000
@@ -220,7 +221,6 @@ services:
       - postgres
     env_file:
       - ./auth.env
-
   
   minio:
     container_name: minio
@@ -236,8 +236,19 @@ services:
       - ${HOME}/minio/data:/data
     command: server /data --console-address ":9001"
 
+
+  example_webhook_prome:
+    container_name: example_webhook_prome
+    image: lintangbirdas/example_webhook_dogker:v1
+    ports:
+      - 9898:9898
+    environment:
+      - APP_LEVEL=production
+    depends_on:
+      - rabbitmq
+
+
 volumes:
   pg-data:
   dkron-data:
-  pgadmin-data:
   grafana-data:

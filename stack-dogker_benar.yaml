@@ -171,6 +171,7 @@ services:
           memory: 300mb
     environment:
      - GRAFANA_APIKEY=glsa_2u2yFm2fLTn9rBcoETuNh5EwLscCIV6C_5ad395a8
+     - APP_LEVEL=production
     ports: 
       - 9191:9191
       - 5001:5001 # grpc
@@ -195,8 +196,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - APP_LEVEL=production
+      - AUTH_URL=dogker-authentications:4000
     ports:
       - 8888:8888
+      - 6666:6666
     env_file:
       - container.env 
     

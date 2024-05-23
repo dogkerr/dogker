@@ -31,9 +31,11 @@ isi filenya:
 
 ##### Insert Data
 ```
-1. make migrate-up
+ tunggu sekitar 40-60 detik ,sampe auth service buat tabel user di postgres
+1. docker compose  -f stack-dogker_benar.yaml up -d ,lagi
+2. make migrate-up
 
-2. import postman collectionnya , terus jalanin request ke beberapa endpointnya
+3. import postman collectionnya , terus jalanin request ke beberapa endpointnya
 
 ```
 
@@ -60,6 +62,14 @@ sh ./setup_dkron.sh
 consume rabbitmq message dg cara jalanin repo example_rabbitmq
 ````
 
+### Graceful delete all compose container
+
+````
+
+docker compose  -f stack-dogker_benar.yaml down -v
+docker service ls
+docker service rm <semua_swarm_service_user>
+````
 
 #### cara test alerting prometheus ketika container user mati
 ```
@@ -89,11 +99,11 @@ SECRET_KEY_MINIO=I2ZJHJuGwYojd5yG47gmsdkNyTpnfrlhFALNhSeG
 
 #### cara deploy pake swarm stack
 ```
- 1. docker stack deploy -c  stack-dogker_benar_swarm.yaml stack_dogker2 --detach=true
+ 1. docker stack deploy -c stack-dogker_benar_swarm.yaml stack_dogker2 --detach=true
  2. make migrate-up
  3.   buka grafana , tambah datasource prometheus (urlnya http://prometheus:9090). dan tambahin datasource loki (urlnya http://loki:3100)
  4. buat service account & access tokennya, copy token ke environements service compose monitor-service
- 5.  docker stack deploy -c  stack-dogker_benar_swarm.yaml stack_dogker2 --detach=true 
+ 5.  docker stack deploy -c stack-dogker_benar_swarm.yaml stack_dogker2 --detach=true 
  6.  sh ./setup_dkron_swarm.sh
  7. import postman collectionnya , terus jalanin request ke beberapa endpointnya
  8. bikin queue  & binding queuee
