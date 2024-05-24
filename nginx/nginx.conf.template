@@ -1,10 +1,10 @@
 http {
     upstream monitor_service {
-        server monitor-service:9191;
+        server ${MONITOR_SERVICE_URL};
     }
 
     upstream grafana {
-        server grafana:3000;
+        server ${GRAFANA_URL};
     }
 
     server {

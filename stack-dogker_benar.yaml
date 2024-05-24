@@ -168,7 +168,7 @@ services:
           cpus: "0.4"
           memory: 300mb
     environment:
-      - GRAFANA_APIKEY=glsa_onGJV3YbnmDbcAbfoqakc1cgMCGTEFgV_04b21beb
+      - GRAFANA_APIKEY=glsa_AneGmIbLjZN15IR6eXhRX1LvzV9qfg2x_54aa1f08
       - APP_LEVEL=production
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -249,15 +249,16 @@ services:
     depends_on:
       - monitor-service
   nginx:
-    image: nginx:latest
+    build: ./nginx
     container_name: dogker-nginx
     mem_limit: 150mb
     cpus: 0.3
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
       - 443:443
+    environment:
+      - MONITOR_SERVICE_URL=monitor-service:9191
+      - GRAFANA_URL=grafana:3000
     depends_on:
       - grafana
       - monitor-service
