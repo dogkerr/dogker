@@ -168,7 +168,7 @@ services:
           cpus: "0.4"
           memory: 300mb
     environment:
-      - GRAFANA_APIKEY=glsa_2u2yFm2fLTn9rBcoETuNh5EwLscCIV6C_5ad395a8
+      - GRAFANA_APIKEY=glsa_onGJV3YbnmDbcAbfoqakc1cgMCGTEFgV_04b21beb
       - APP_LEVEL=production
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -245,7 +245,7 @@ services:
       - 9898:9898
       - 9897:9897
     volumes:
-      - templates:/templates
+      - ./templates:/templates
     depends_on:
       - monitor-service
 
