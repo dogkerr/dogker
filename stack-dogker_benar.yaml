@@ -248,6 +248,19 @@ services:
       - ./templates:/templates
     depends_on:
       - monitor-service
+  nginx:
+    image: nginx:latest
+    container_name: dogker-nginx
+    mem_limit: 150mb
+    cpus: 0.3
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - grafana
+      - monitor-service
 
 volumes:
   pg-data:
