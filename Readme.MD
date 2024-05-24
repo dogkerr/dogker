@@ -2,7 +2,7 @@
 
 ### Notes
 ```
-1. sebelum start microservicesnya pastiin semua swarm service user udah dihapus
+1. sebelum start microservicesnya pastiin semua swarm service user udah dihapus dan hapus image lintangbirdas/monitor-service:v1.1 & lintangbirdas/container-service:v2, terus pull 2 image itu lagi biar up to date sama image di dockerhub
 2. pas microservicesnya jalan, hapus swarm service user harus lewat endpoint api container-service jgn lewat cli (kalo lewat cli ada bug/errornya)
 3. kalau mau stop microsevicesnya pakai command 'docker compose down -v'
 ```
