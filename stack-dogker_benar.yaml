@@ -155,6 +155,7 @@ services:
     volumes:
       - ./dkron_curl.sh:/curl/curl.sh
       - dkron-data:/dkron.data
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 9911:8080
     command: >
@@ -172,6 +173,8 @@ services:
     environment:
      - GRAFANA_APIKEY=glsa_2u2yFm2fLTn9rBcoETuNh5EwLscCIV6C_5ad395a8
      - APP_LEVEL=production
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     ports: 
       - 9191:9191
       - 5001:5001 # grpc
@@ -194,6 +197,7 @@ services:
           memory: 2000mb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - APP_LEVEL=production
       - AUTH_URL=dogker-authentications:4000

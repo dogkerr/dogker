@@ -152,6 +152,7 @@ services:
         limits:
           cpus: '0.5'
           memory: 500mb
+    
     volumes:
       - ./dkron_curl.sh:/curl/curl.sh
       - dkron-data:/dkron.data
@@ -159,52 +160,11 @@ services:
       - 9911:8080
     command: >
       agent --server --bootstrap-expect=1 --node-name=node1
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
 
 
-  monitor-service:
-    container_name: monitor-service
-    image:  lintangbirdas/monitor-service-dev:v1
-    deploy:
-      resources:
-        limits:
-          cpus: '0.4'
-          memory: 300mb
-    environment:
-     - GRAFANA_APIKEY=glsa_2u2yFm2fLTn9rBcoETuNh5EwLscCIV6C_5ad395a8
-     - APP_LEVEL=production
-    ports: 
-      - 9191:9191
-      - 8953:8953
-      - 5001:5001 # grpc
-    depends_on:
-      - grafana
-      - prometheus
-      - postgres
-      - rabbitmq
 
-
-  container-service:
-    container_name: container-service
-    image: lintangbirdas/container-service-dev:v1
-    deploy:
-      resources:
-        limits:
-          cpus: '3'
-          memory: 2000mb
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - APP_LEVEL=production
-      - AUTH_URL=dogker-authentications:4000
-    ports:
-      - 8888:8888
-      - 6969:6969
-      - 6666:6666
-    depends_on:
-      - rabbitmq
-      - postgres
-      - dkron
-      
 
   authentications:
     container_name: "dogker-authentications"

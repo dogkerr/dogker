@@ -1,0 +1,27 @@
+{
+
+    "name": "job_all_users_metrics_ke_billing",
+    "displayname": "string",
+    "schedule": "@every 5s",
+    "timezone": "Asia/Jakarta",
+    "owner": "Lintang Birda Saputra",
+    "owner_email": "lintangbirdasaputra23@gmail.com",
+    "disabled": false,
+    "metadata": 
+    {
+        "nama": "all_users_metrics_ke_billing"
+
+    },
+    "concurrency": "allow",
+    "executor": "http",
+    "executor_config": {
+        "method": "POST",
+        "url": "http://host.docker.internal:9191/api/v1/monitors/cron/usersmetrics",
+        "timeout": "30",
+        "expectCode": "200",
+        "expectBody": "ok",
+        "debug": "true"
+    }
+
+
+}

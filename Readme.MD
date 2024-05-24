@@ -1,5 +1,12 @@
 ### Cara jalanin dogker microservices
 
+### Notes
+```
+1. sebelum start microservicesnya pastiin semua swarm service user udah dihapus
+2. pas microservicesnya jalan, hapus swarm service user harus lewat endpoint api container-service jgn lewat cli (kalo lewat cli ada bug/errornya)
+3. kalau mau stop microsevicesnya pakai command 'docker compose down -v'
+```
+
 ##### setup docker
 ```
 1.sudo nano /etc/docker/daemon.json (linux) atau ~/.docker/daemon.json kalo di macos
