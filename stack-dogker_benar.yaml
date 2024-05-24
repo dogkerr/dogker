@@ -20,7 +20,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.4'
+          cpus: "0.4"
           memory: 300mb
     ports:
       - 8080:8080
@@ -42,7 +42,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.4'
+          cpus: "0.4"
           memory: 200mb
     ports:
       - 9091:9091
@@ -57,7 +57,7 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_NAME=Main Org.
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
-    volumes: 
+    volumes:
       - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
@@ -65,7 +65,7 @@ services:
     # loki promtail
   loki:
     image: grafana/loki:2.8.11
-    container_name: loki 
+    container_name: loki
     volumes:
       - ./loki:/etc/loki
     ports:
@@ -79,7 +79,6 @@ services:
       - /var/log:/var/log
       - ./promtail:/etc/promtail
     command: -config.file=/etc/promtail/promtail-config.yml
-  
 
   alert-manager: # buat alerting pas autoscaling/container down
     image: prom/alertmanager
@@ -87,7 +86,7 @@ services:
       - "./alertmanager/alertmanager.yml:/alertmanager/alertmanager.yml"
     ports:
       - 9093:9093
-    command:  --config.file=/alertmanager/alertmanager.yml
+    command: --config.file=/alertmanager/alertmanager.yml
 
   node-exporter:
     image: prom/node-exporter
@@ -101,14 +100,14 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: "2"
           memory: 2000mb
     volumes:
       - pg-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: 'admin'
-      POSTGRES_PASSWORD: 'admin'
-      POSTGRES_DB: 'dogker' # awalnya postgres
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "dogker" # awalnya postgres
     ports:
       - 5432:5432
 
@@ -117,32 +116,31 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.6'
+          cpus: "0.6"
           memory: 600mb
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@email.com
       - PGADMIN_DEFAULT_PASSWORD=admin
       - PGADMIN_LISTEN_PORT=5050
     # volumes:
-      # -  pgadmin-data:/var/lib/pgadmin
+    # -  pgadmin-data:/var/lib/pgadmin
     ports:
       - 5050:5050
 
-      
   rabbitmq:
     image: rabbitmq:3.13.1-management
     container_name: rabbitmq
     deploy:
       resources:
         limits:
-          cpus: '0.6'
+          cpus: "0.6"
           memory: 500mb
     ports:
-        - 5672:5672
-        - 15672:15672
+      - 5672:5672
+      - 15672:15672
     volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
 
   dkron:
     image: dkron/dkron:4.0.0-beta5
@@ -150,7 +148,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 500mb
     volumes:
       - ./dkron_curl.sh:/curl/curl.sh
@@ -161,21 +159,20 @@ services:
     command: >
       agent --server --bootstrap-expect=1 --node-name=node1
 
-
   monitor-service:
     container_name: monitor-service
-    image:  lintangbirdas/monitor-service:v1.1
+    image: lintangbirdas/monitor-service:v1.1
     deploy:
       resources:
         limits:
-          cpus: '0.4'
+          cpus: "0.4"
           memory: 300mb
     environment:
-     - GRAFANA_APIKEY=glsa_2u2yFm2fLTn9rBcoETuNh5EwLscCIV6C_5ad395a8
-     - APP_LEVEL=production
+      - GRAFANA_APIKEY=glsa_2u2yFm2fLTn9rBcoETuNh5EwLscCIV6C_5ad395a8
+      - APP_LEVEL=production
     volumes:
       - /etc/localtime:/etc/localtime:ro
-    ports: 
+    ports:
       - 9191:9191
       - 5001:5001 # grpc
     env_file:
@@ -186,14 +183,13 @@ services:
       - postgres
       - rabbitmq
 
-
   container-service:
     container_name: container-service
     image: lintangbirdas/container-service:v2
     deploy:
       resources:
         limits:
-          cpus: '3'
+          cpus: "3"
           memory: 2000mb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -205,13 +201,12 @@ services:
       - 8888:8888
       - 6666:6666
     env_file:
-      - container.env 
-    
+      - container.env
+
     depends_on:
       - rabbitmq
       - postgres
       - dkron
-      
 
   authentications:
     container_name: "dogker-authentications"
@@ -219,7 +214,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '3'
+          cpus: "3"
           memory: 2000mb
     ports:
       - 3001:3000
@@ -228,32 +223,31 @@ services:
       - postgres
     env_file:
       - ./auth.env
-  
+
   minio:
     container_name: minio
     image: quay.io/minio/minio
-    ports: 
+    ports:
       - 9000:9000
       - 9001:9001
     environment:
       - MINIO_ROOT_USER=lintang
       - MINIO_ROOT_PASSWORD=lintang123
     user: 1000:1000
-    volumes:  
+    volumes:
       - ${HOME}/minio/data:/data
     command: server /data --console-address ":9001"
 
-
-  example_webhook_prome:
-    container_name: example_webhook_prome
-    image: lintangbirdas/example_webhook_dogker:v1
+  mailing_service:
+    container_name: mailing_service
+    image: lintangbirdas/mailing-service-david:v1.1 # davidluodawei/mailing-service:v1.1
     ports:
       - 9898:9898
-    environment:
-      - APP_LEVEL=production
+      - 9897:9897
+    volumes:
+      - templates:/templates
     depends_on:
-      - rabbitmq
-
+      - monitor-service
 
 volumes:
   pg-data:
