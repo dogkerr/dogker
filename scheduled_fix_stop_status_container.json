@@ -1,22 +1,22 @@
 {
 
-    "name": "job_send_terminate_instance_to_ctr_service",
+    "name": "job_fix_stop_status_container",
     "displayname": "string",
-    "schedule": "@every 4s",
+    "schedule": "@every 5s",
     "timezone": "Asia/Jakarta",
     "owner": "Lintang Birda Saputra",
     "owner_email": "lintangbirdasaputra23@gmail.com",
     "disabled": false,
     "metadata": 
     {
-        "nama": "job_send_terminate_instance_to_ctr_service"
+        "nama": "job_fix_stop_status_container"
 
     },
     "concurrency": "allow",
     "executor": "http",
     "executor_config": {
         "method": "POST",
-        "url": "http://monitor-service:9191/api/v1/monitors/cron/terminatedAccidentally",
+        "url": "http://container-service:8888/api/v1/containers/cron/recoverContainer",
         "timeout": "30",
         "expectCode": "200",
         "expectBody": "ok",
