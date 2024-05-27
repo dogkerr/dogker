@@ -1,60 +1,15 @@
 {
 	"info": {
-		"_postman_id": "e0a23330-c932-4a6a-b23f-c929dcb1daed",
-		"name": "Dogker http",
+		"_postman_id": "668e1187-29af-4986-a0b7-dec70b72a9a2",
+		"name": "Dogker http vps",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30538133",
-		"_collection_link": "https://orange-comet-51695.postman.co/workspace/netflik~35c0e208-27dd-4c2a-a67f-44e4ee221c8b/collection/30538133-e0a23330-c932-4a6a-b23f-c929dcb1daed?action=share&source=collection_link&creator=30538133"
+		"_collection_link": "https://orange-comet-51695.postman.co/workspace/netflik~35c0e208-27dd-4c2a-a67f-44e4ee221c8b/collection/30538133-668e1187-29af-4986-a0b7-dec70b72a9a2?action=share&source=collection_link&creator=30538133"
 	},
 	"item": [
 		{
 			"name": "containers_service",
 			"item": [
-				{
-					"name": "hellolintnag",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxpbnRhbmciLCJpYXQiOjE3MTQ4NDc2MDIsImV4cCI6MTcxNDg0ODUwMiwic3ViIjoiOWVmY2YyYmYtNDg5OC00OGU1LTkzOGYtYTY5YzdlMzBhYzlmIn0.H3xMSCw4kTZ5ZUybtciWcD1FGj1do1oUXaOt4R7SslFiVWbRx8vPiUSA3qhFr7ZYN11dF7aoL_ULY7E0NCZTVg",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "127.0.0.1:8888/api/v1/lalala",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"lalala"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "register",
 					"request": {
@@ -62,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"fullname\": \"Lintang Birda Saputra2\",\n    \"email\": \"lintang2@gmail.com\",\n    \"username\": \"lintang2\",\n    \"password\": \"LintangG123(\"\n}",
+							"raw": "{\n    \"fullname\": \"Lintang Birda Saputra23\",\n    \"email\": \"uyayiu12543@gmail.com\",\n    \"username\": \"lintan23g23\",\n    \"password\": \"LintangG123(\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -70,12 +25,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3001/users",
+							"raw": "http://10.70.70.1:3001/users",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "3001",
@@ -107,7 +62,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n      \"username\": \"lintang2\",\n    \"password\": \"LintangG123(\"\n}",
+							"raw": "{\n      \"username\": \"lintang23\",\n    \"password\": \"LintangG123(\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -115,12 +70,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3001/authentications",
+							"raw": "http://10.70.70.1:3001/authentications",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "3001",
@@ -163,12 +118,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3001/users?id=f0a87a58-b2cb-445b-a8a0-66208ffb5b5b",
+							"raw": "http://10.70.70.1:3001/users?id=774933c0-0bc1-4f2d-9377-e5f324324",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "3001",
@@ -178,7 +133,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "f0a87a58-b2cb-445b-a8a0-66208ffb5b5b"
+									"value": "774933c0-0bc1-4f2d-9377-e5f324324"
 								}
 							]
 						}
@@ -202,7 +157,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"go_lintang_li22327\",\n    \"image\": \"lintangbirdas/go_log:v1\",\n    \"limit\": {\n        \"cpus\": 1000,\n        \"memory\": 500\n    },\n    \"replica\": 3,\n    \"endpoint\": [{\n        \"target_port\": 8231,\n        \"published_port\": 8425,\n        \"protocol\": \"tcp\"\n    }]\n}",
+							"raw": "{\n    \"name\": \"go_lintang_coba_vp7\",\n    \"image\": \"lintangbirdas/go_log:v1\",\n    \"limit\": {\n        \"cpus\": 1000,\n        \"memory\": 500\n    },\n    \"replica\": 2,\n    \"endpoint\": [{\n        \"target_port\": 8231,\n        \"published_port\": 8353,\n        \"protocol\": \"tcp\"\n    }]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -210,12 +165,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers",
+							"raw": "http://10.70.70.1:8888/api/v1/containers",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -248,7 +203,7 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "lintang_tesupload",
+									"value": "lintang_tesupload3",
 									"contentType": "multipart/form-data",
 									"type": "text"
 								},
@@ -272,7 +227,7 @@
 								},
 								{
 									"key": "endpoint",
-									"value": "[{\n        \"target_port\": 8232,\n        \"published_port\": 8723,\n        \"protocol\": \"tcp\"\n    }]",
+									"value": "[{\n        \"target_port\": 8231,\n        \"published_port\": 8727,\n        \"protocol\": \"tcp\"\n    }]",
 									"contentType": "multipart/form-data",
 									"type": "text"
 								},
@@ -286,17 +241,17 @@
 									"key": "image",
 									"contentType": "multipart/form-data",
 									"type": "file",
-									"src": "postman-cloud:///1ef0d3b8-9511-4a40-9e80-cbf4a432bf34"
+									"src": "/home/lintangbs/Documents/semester_4/cloud/project/dogker/user-container.tar.gz"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/upload",
+							"raw": "http://10.70.70.1:8888/api/v1/containers/upload",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -326,12 +281,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/c6ovakbx6fhqkkqh97xt1yr3f",
+							"raw": "http://10.70.70.1:8888/api/v1/containers/rw7tfm2qhh7w29qaqrwdvxyq0",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -339,7 +294,7 @@
 								"api",
 								"v1",
 								"containers",
-								"c6ovakbx6fhqkkqh97xt1yr3f"
+								"rw7tfm2qhh7w29qaqrwdvxyq0"
 							]
 						}
 					},
@@ -361,12 +316,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers",
+							"raw": "http://10.70.70.1:8888/api/v1/containers",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -395,12 +350,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/k1a9dabmc5khjq6byrp0ki3ff",
+							"raw": "http://10.70.70.1:8888/api/v1/containers/12mao8tfwgkzi2umopuv0aj2i",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -408,42 +363,7 @@
 								"api",
 								"v1",
 								"containers",
-								"k1a9dabmc5khjq6byrp0ki3ff"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "load test",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/loadtest",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"loadtest"
+								"12mao8tfwgkzi2umopuv0aj2i"
 							]
 						}
 					},
@@ -465,12 +385,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/di0en76imvnukihaux2rhdokc/start",
+							"raw": "http://10.70.70.1:8888/api/v1/containers/70b2b3nq2kitnom6bw5lu6tfx/start",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -478,7 +398,7 @@
 								"api",
 								"v1",
 								"containers",
-								"di0en76imvnukihaux2rhdokc",
+								"70b2b3nq2kitnom6bw5lu6tfx",
 								"start"
 							]
 						}
@@ -501,7 +421,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/t3a5axheijgp0zvgkgn88qim0/stop",
+							"raw": "http://127.0.0.1:8888/api/v1/containers/dio735eyclmi0e0forill9du1/stop",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -514,7 +434,7 @@
 								"api",
 								"v1",
 								"containers",
-								"t3a5axheijgp0zvgkgn88qim0",
+								"dio735eyclmi0e0forill9du1",
 								"stop"
 							]
 						}
@@ -538,7 +458,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"replica\": 2\n}",
+							"raw": "{\n    \"replica\": 6\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -546,12 +466,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/di0en76imvnukihaux2rhdokc/scale",
+							"raw": "http://10.70.70.1:8888/api/v1/containers/12mao8tfwgkzi2umopuv0aj2i/scale",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -559,7 +479,7 @@
 								"api",
 								"v1",
 								"containers",
-								"di0en76imvnukihaux2rhdokc",
+								"12mao8tfwgkzi2umopuv0aj2i",
 								"scale"
 							]
 						}
@@ -591,12 +511,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/di0en76imvnukihaux2rhdokc/schedule",
+							"raw": "http://10.70.70.1:8888/api/v1/containers/2lr1wdw4j3m1olvmmtwdmv35h/schedule",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -604,7 +524,7 @@
 								"api",
 								"v1",
 								"containers",
-								"di0en76imvnukihaux2rhdokc",
+								"2lr1wdw4j3m1olvmmtwdmv35h",
 								"schedule"
 							]
 						}
@@ -636,12 +556,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/e6hwo43poyubovbxxrogvdb9h/schedule",
+							"raw": "http://10.70.70.1:8888/api/v1/containers/2lr1wdw4j3m1olvmmtwdmv35h/schedule",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -649,7 +569,7 @@
 								"api",
 								"v1",
 								"containers",
-								"e6hwo43poyubovbxxrogvdb9h",
+								"2lr1wdw4j3m1olvmmtwdmv35h",
 								"schedule"
 							]
 						}
@@ -681,12 +601,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/vhsdj471m6ma4i19en3i9i9u3/schedule",
+							"raw": "http://10.70.70.1:8888/api/v1/containers/txgc1mpg5iol7ufzgoxl63ryw/schedule",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -694,7 +614,7 @@
 								"api",
 								"v1",
 								"containers",
-								"vhsdj471m6ma4i19en3i9i9u3",
+								"txgc1mpg5iol7ufzgoxl63ryw",
 								"schedule"
 							]
 						}
@@ -726,12 +646,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/create/schedule",
+							"raw": "http://10.70.70.1:8888/api/v1/containers/create/schedule",
 							"protocol": "http",
 							"host": [
-								"127",
-								"0",
-								"0",
+								"10",
+								"70",
+								"70",
 								"1"
 							],
 							"port": "8888",
@@ -741,28 +661,6 @@
 								"containers",
 								"create",
 								"schedule"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8679/info",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8679",
-							"path": [
-								"info"
 							]
 						}
 					},
@@ -785,7 +683,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"go_lintang_lintang_lalala3\",\n    \"image\": \"lintangbirdas/go_log:v1\",\n    \"limit\": {\n        \"cpus\": 300,\n        \"memory\": 500\n    },\n    \"replica\": 1,\n    \"endpoint\": [{\n        \"target_port\": 8231,\n        \"published_port\": 8331,\n        \"protocol\": \"tcp\"\n    }]\n}",
+							"raw": "{\n    \"name\": \"go_lintang_coba_vp7\",\n    \"image\": \"lintangbirdas/go_log:v1\",\n    \"limit\": {\n        \"cpus\": 2000,\n        \"memory\": 1000\n    },\n    \"replica\": 6,\n    \"endpoint\": [{\n        \"target_port\": 8231,\n        \"published_port\": 8331,\n        \"protocol\": \"tcp\"\n    }]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -793,17 +691,20 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8888/api/v1/containers/k1a9dabmc5khjq6byrp0ki3ff",
+							"raw": "http://10.70.70.1:8888/api/v1/containers/12mao8tfwgkzi2umopuv0aj2i",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"10",
+								"70",
+								"70",
+								"1"
 							],
 							"port": "8888",
 							"path": [
 								"api",
 								"v1",
 								"containers",
-								"k1a9dabmc5khjq6byrp0ki3ff"
+								"12mao8tfwgkzi2umopuv0aj2i"
 							]
 						}
 					},
@@ -842,100 +743,43 @@
 			]
 		},
 		{
-			"name": "Get Metrics Prome",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5033/api/v1/monitors/metrics?userId=ebbf070f-9854-43ae-8025-b1cd40f3e7e8",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5033",
-					"path": [
-						"api",
-						"v1",
-						"monitors",
-						"metrics"
-					],
-					"query": [
-						{
-							"key": "userId",
-							"value": "ebbf070f-9854-43ae-8025-b1cd40f3e7e8"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get services",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "127.0.0.1:5000/api/v1/monitors/services?userId=c25ed8a3-cc49-4ba2-9f3d-23c1db70ec24",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"monitors",
-						"services"
-					],
-					"query": [
-						{
-							"key": "userId",
-							"value": "c25ed8a3-cc49-4ba2-9f3d-23c1db70ec24"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get metrics by container id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:5033/api/v1/monitors/ctrMetrics?userId=ebbf070f-9854-43ae-8025-b1cd40f3e7e8&serviceId=g382l7txubuh",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5033",
-					"path": [
-						"api",
-						"v1",
-						"monitors",
-						"ctrMetrics"
-					],
-					"query": [
-						{
-							"key": "userId",
-							"value": "ebbf070f-9854-43ae-8025-b1cd40f3e7e8"
+			"name": "mailing",
+			"item": [
+				{
+					"name": "webhook",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"receiver\": \"uyaiu123@gmail.com\",\n    \"commonLabels\": {\n    \"alertname\": \"container down\",\n    \"container_label_com_docker_swarm_service_id\": \"sdksadsadjs123\",\n    \"container_label_com_docker_swarm_service_name\": \"monitor-service\",\n    \"container_label_user_id\": \"e690775d-54e7-476e-90e8-e41729ab8b13\"\n}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "serviceId",
-							"value": "g382l7txubuh"
+						"url": {
+							"raw": "http://10.70.70.1:9898/api/v1/email/down",
+							"protocol": "http",
+							"host": [
+								"10",
+								"70",
+								"70",
+								"1"
+							],
+							"port": "9898",
+							"path": [
+								"api",
+								"v1",
+								"email",
+								"down"
+							]
 						}
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
 			"name": "get logs dashboard",
@@ -953,12 +797,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:9191/api/v1/monitors/dashboards/logs",
+					"raw": "http://10.70.70.1:9191/api/v1/monitors/dashboards/logs",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
+						"10",
+						"70",
+						"70",
 						"1"
 					],
 					"port": "9191",
@@ -989,12 +833,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:9191/api/v1/monitors/dashboards/monitors",
+					"raw": "http://10.70.70.1:9191/api/v1/monitors/dashboards/monitors",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
+						"10",
+						"70",
+						"70",
 						"1"
 					],
 					"port": "9191",
