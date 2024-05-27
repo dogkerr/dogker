@@ -209,7 +209,7 @@ services:
 
   authentications:
     container_name: "dogker-authentications"
-    image:  lintangbirdas/auth-service-adam:v2
+    image:  alexadamm/dogker-auth:v1.1
     deploy:
       resources:
         limits:
