@@ -165,8 +165,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.4"
-          memory: 300mb
+          cpus: "1"
+          memory: 500mb
     environment:
       - GRAFANA_APIKEY=glsa_upO9gcKxrldWUVqMVudCNevLZRGanE52_e4814571
       - APP_LEVEL=production
@@ -189,8 +189,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1"
-          memory: 300mb
+          cpus: "1.2"
+          memory: 500mb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro

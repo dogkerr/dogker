@@ -2,7 +2,7 @@
 
     "name": "job_fix_stop_status_container",
     "displayname": "string",
-    "schedule": "@every 5s",
+    "schedule": "@every 10s",
     "timezone": "Asia/Jakarta",
     "owner": "Lintang Birda Saputra",
     "owner_email": "lintangbirdasaputra23@gmail.com",

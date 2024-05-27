@@ -96,13 +96,14 @@ docker service rm <semua_swarm_service_user>
 5. docker exec -i -t container-service  sh
 5b. apk add nano
 6. nano .env (isi ACC_KEY_MINIO & SECRET_KEY_MINIO)
+7. buat bucket , tipe nya public
 
 contoh:
 
 # MINIO
 BASE_URL_MINIO=minio:9000
-ACC_KEY_MINIO=EYhu04KrlXpo8wwKkj3b
-SECRET_KEY_MINIO=dLEMt9Wvib833uysb0xBTzhbkLYSfygpHiR7fDHR
+ACC_KEY_MINIO=T1MPALWJCTMV9EM4NBVM
+SECRET_KEY_MINIO=zen87LIDiHho5gJG+1vG8mtlGOSvSNQhSOqYHuJb
 
 
 ```
@@ -131,3 +132,4 @@ nama queue: monitor-billing
 
 #### Troubleshooting
 1. kalau container-service & monitor service mati, tinggal  ' docker compose  -f stack-dogker_benar.yaml up -d' berkali kali aja sampai running karena emang startup golang lebih cepet dari postgres jadi golangnya belum sempet connect sama postgres
+2. jangan join docker swarm as manager node bikin error nanti kalo  salah satu manager node  mati

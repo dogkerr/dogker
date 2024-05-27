@@ -9,7 +9,7 @@
     "disabled": false,
     "metadata": 
     {
-        "nama": "job_send_terminate_instance_to_ctr_service"
+    "nama": "job_send_terminate_instance_to_ctr_service"
 
     },
     "concurrency": "allow",
