@@ -201,7 +201,6 @@ services:
       - 8888:8888
       - 6666:6666
     # env_file:
-    #   - container.env
 
     depends_on:
       - rabbitmq
@@ -252,6 +251,38 @@ services:
     volumes:
       - ./templates:/templates
     depends_on:
+      - monitor-service
+
+  nginx:
+    build: ./nginx
+    container_name: dogker-nginx
+    mem_limit: 150mb
+    cpus: 0.3
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - MONITOR_SERVICE_URL=monitor-service:9191
+      - GRAFANA_URL=grafana:3000
+    depends_on:
+      - grafana
+      - monitor-service
+
+  billing-service:
+    container_name: billing-service
+    image: andrenk/billing-service:v1.1
+    deploy:
+      resources:
+        limits:
+          cpus: "0.4"
+          memory: 300mb
+    ports:
+      - 6969:6969
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - postgres
+      - rabbitmq
       - monitor-service
 
 volumes:

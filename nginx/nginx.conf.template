@@ -1,0 +1,68 @@
+http {
+    upstream monitor_service {
+        server ${MONITOR_SERVICE_URL};
+    }
+
+    upstream grafana {
+        server ${GRAFANA_URL};
+    }
+
+    server {
+        listen 80;
+
+        location /d-solo/ {
+            # intervene and do auth
+            auth_request /auth;
+
+            # if success forward to grafana
+            proxy_pass http://grafana;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Authorization $http_authorization;
+        }
+
+        # auth subrequest
+        location /auth {
+            internal;
+
+            set $dashboard_id '';
+            if ($request_uri ~* /d-solo/([a-zA-Z0-9]+)/) {
+                set $dashboard_id $1;
+            }
+
+            add_header X-Dashboard-ID $dashboard_id;
+
+            proxy_pass http://monitor_service/api/v1/monitors/grafana/auth?dashboard_id=$dashboard_id;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Authorization $http_authorization;
+        }
+
+        error_page 401 = @error401;
+        error_page 403 = @error403;
+
+        location @error401 {
+            return 401 "Unauthorized";
+        }
+
+        location @error403 {
+            return 403 "Forbidden";
+        }
+
+        location / {
+            proxy_pass http://grafana;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}
+
+events {
+    worker_connections 1024;
+}
