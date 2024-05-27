@@ -73,7 +73,7 @@ services:
     command: -config.file=/etc/loki/loki-config.yml
 
   promtail:
-    image: grafana/promtail:2.8.11-amd64
+    image: grafana/promtail:2.8.11 #amd64
     container_name: promtail
     volumes:
       - /var/log:/var/log
@@ -168,15 +168,15 @@ services:
           cpus: "0.4"
           memory: 300mb
     environment:
-      - GRAFANA_APIKEY=glsa_onGJV3YbnmDbcAbfoqakc1cgMCGTEFgV_04b21beb
+      - GRAFANA_APIKEY=glsa_upO9gcKxrldWUVqMVudCNevLZRGanE52_e4814571
       - APP_LEVEL=production
     volumes:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 9191:9191
       - 5001:5001 # grpc
-    env_file:
-      - monitor.env
+    # env_file:
+    #   - monitor.env
     depends_on:
       - grafana
       - prometheus
@@ -189,8 +189,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "3"
-          memory: 2000mb
+          cpus: "1"
+          memory: 300mb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
@@ -200,8 +200,8 @@ services:
     ports:
       - 8888:8888
       - 6666:6666
-    env_file:
-      - container.env
+    # env_file:
+    #   - container.env
 
     depends_on:
       - rabbitmq
@@ -210,15 +210,15 @@ services:
 
   authentications:
     container_name: "dogker-authentications"
-    image: lintangbirdas/auth-service-adam:v2
+    image: alexadamm/dogker-auth:v1.0
     deploy:
       resources:
         limits:
-          cpus: "3"
-          memory: 2000mb
+          cpus: "1"
+          memory: 300mb
     ports:
       - 3001:3000
-      - 4001:4000
+      - 4000:4000
     depends_on:
       - postgres
     env_file:
@@ -230,6 +230,11 @@ services:
     ports:
       - 9000:9000
       - 9001:9001
+    deploy:
+      resources:
+        limits:
+          cpus: "0.8"
+          memory: 1000mb
     environment:
       - MINIO_ROOT_USER=lintang
       - MINIO_ROOT_PASSWORD=lintang123
@@ -239,7 +244,7 @@ services:
     command: server /data --console-address ":9001"
 
   mailing_service:
-    container_name: mailing_service
+    container_name: mailing-service
     image: lintangbirdas/mailing-service-david:v1.1 # davidluodawei/mailing-service:v1.1
     ports:
       - 9898:9898

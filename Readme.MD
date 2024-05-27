@@ -16,7 +16,7 @@ isi filenya:
    "metrics-addr": "0.0.0.0:9323",
    "experimental": true
 
-}
+}do
 2. docker plugin install grafana/loki-docker-driver:2.9.4 --alias loki --grant-all-permissions
 3. sudo systemctl restart docker
 4. firewall allow port 9323/tcp 
@@ -92,14 +92,17 @@ docker service rm <semua_swarm_service_user>
 1. buka localhost:9001
 2. login pake username=lintang, password=lintang123
 3. buka menu access key tambahin accesskey sama secret key
-4. copy accesskey dan secret key ke  env containerservice
+4. copy accesskey dan secret key ke  env containerservice 
+5. docker exec -i -t container-service  sh
+5b. apk add nano
+6. nano .env (isi ACC_KEY_MINIO & SECRET_KEY_MINIO)
 
 contoh:
 
 # MINIO
 BASE_URL_MINIO=minio:9000
-ACC_KEY_MINIO=kIiDoM7RUmofIPTyQlQQ
-SECRET_KEY_MINIO=I2ZJHJuGwYojd5yG47gmsdkNyTpnfrlhFALNhSeG
+ACC_KEY_MINIO=EYhu04KrlXpo8wwKkj3b
+SECRET_KEY_MINIO=dLEMt9Wvib833uysb0xBTzhbkLYSfygpHiR7fDHR
 
 
 ```
