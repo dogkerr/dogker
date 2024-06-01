@@ -21,8 +21,8 @@ global:
 
 route:
   receiver: webhook_receiver_emailing_service
-  group_interval: 3m
-  repeat_interval: 2m
+  group_interval: 4m
+  repeat_interval: 3m
 
   # group_interval: 5s # ini doang
   # repeat_interval: 10s # ini doang gakbisa # ini sama group interval jadi ngulang setiap 10s webhooknya
