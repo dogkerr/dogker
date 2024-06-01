@@ -14,17 +14,22 @@
 #  webhook alertmanager
 global:
   resolve_timeout: 10s #1m gabisa
-
+  
 # route:
 #   routes: 
 #     receiver:
 
 route:
   receiver: webhook_receiver_emailing_service
+  group_interval: 3m
+  repeat_interval: 2m
+
+  # group_interval: 5s # ini doang
+  # repeat_interval: 10s # ini doang gakbisa # ini sama group interval jadi ngulang setiap 10s webhooknya
 receivers:
     - name: webhook_receiver_emailing_service
       webhook_configs:
-        - url: http://example_webhook_prome:9898/api/v1/email/down # http://mailing-service:8555 # anggap 8555 port mailing service  #'https://webhook.site/7d37e2ff-560c-4279-9b23-26681123a10a' #container-service:8888
+        - url: http://container-service:8888/api/v1/containers/alert/down # http://mailing-service:8555 # anggap 8555 port mailing service  #'https://webhook.site/7d37e2ff-560c-4279-9b23-26681123a10a' #container-service:8888
           send_resolved: false
 
 # receivers:

@@ -5,6 +5,12 @@
 1. sebelum start microservicesnya pastiin semua swarm service user udah dihapus dan hapus image lintangbirdas/monitor-service:v1.1 & lintangbirdas/container-service:v2, terus pull 2 image itu lagi biar up to date sama image di dockerhub
 2. pas microservicesnya jalan, hapus swarm service user harus lewat endpoint api container-service jgn lewat cli (kalo lewat cli ada bug/errornya)
 3. kalau mau stop microsevicesnya pakai command 'docker compose down -v'
+4. pastiin email buat register pake email asli gmail , biar mailing service jalan..
+5. kalau mau pake fitur filter log :
+ubah  const userOneUrls = getUrl("8505");
+    const userTwoUrls = getUrl("8535");
+jadi port public container/swarm service yang kalian buat....
+
 ```
 
 ##### setup docker
@@ -32,7 +38,7 @@ isi filenya:
 2. docker compose  -f stack-dogker_benar.yaml up -d
 
 3.  buka grafana , tambah datasource prometheus (urlnya http://prometheus:9090). dan tambahin datasource loki (urlnya http://loki:3100)
-4. buat service account & access tokennya, copy token ke environements service compose monitor-service
+4. buat service account & access tokennya, copy token ke environements service compose monitor-service di stack-dogker-benar.yaml
 5. docker compose  -f stack-dogker_benar.yaml up -d , lagi
 ```
 
@@ -56,6 +62,7 @@ isi filenya:
 exchangeName: monitor-billing
 routingkey: monitor.billing.all_users
 nama queue: monitor-billing
+
 ```
 
 ##### cron job dkron
@@ -63,6 +70,33 @@ nama queue: monitor-billing
 ```
 sh ./setup_dkron.sh
 ```
+
+#### Setup minIO buat upload src_code & dockerfile , lalu build image & create container based on uploaded dockerfile (buat endpoint create container from source code tarfile & dockerfile)
+```
+1. buka 103.175.219.0:9001
+2. login pake username=lintang, password=lintang123
+3. buka menu access key tambahin accesskey sama secret key
+4. copy accesskey dan secret key ke  env containerservice 
+5. docker exec -i -t container-service  sh
+5b. apk add nano
+6. nano .env  (isi ACC_KEY_MINIO & SECRET_KEY_MINIO)
+6b. nano environemnt di stack-dogker_benar.yaml  (isi ACC_KEY_MINIO & SECRET_KEY_MINIO)
+7. buat bucket , tipe nya public , bucket name: dogker-bucket
+8. docker compose  -f stack-dogker_benar.yaml up -d
+
+contoh:
+
+# MINIO
+BASE_URL_MINIO=minio:9000
+ACC_KEY_MINIO=kPZujhycCvJM1kU084pt
+SECRET_KEY_MINIO=4NsypaiGTynxdrb8i5iuxAfmJw3sJxChls8CxEAq
+
+
+```
+
+
+###
+
 
 #### Consume Rabbitmq
 ````
@@ -87,26 +121,7 @@ docker service rm <semua_swarm_service_user>
 
 
 
-#### Setup minIO buat upload src_code & dockerfile , lalu build image & create container based on uploaded dockerfile (buat endpoint create container from source code tarfile & dockerfile)
-```
-1. buka localhost:9001
-2. login pake username=lintang, password=lintang123
-3. buka menu access key tambahin accesskey sama secret key
-4. copy accesskey dan secret key ke  env containerservice 
-5. docker exec -i -t container-service  sh
-5b. apk add nano
-6. nano .env (isi ACC_KEY_MINIO & SECRET_KEY_MINIO)
-7. buat bucket , tipe nya public
 
-contoh:
-
-# MINIO
-BASE_URL_MINIO=minio:9000
-ACC_KEY_MINIO=T1MPALWJCTMV9EM4NBVM
-SECRET_KEY_MINIO=zen87LIDiHho5gJG+1vG8mtlGOSvSNQhSOqYHuJb
-
-
-```
 
 #### cara deploy pake swarm stack
 ```

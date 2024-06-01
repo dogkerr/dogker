@@ -2,7 +2,7 @@
 
     "name": "job_all_users_metrics_ke_billing",
     "displayname": "string",
-    "schedule": "@every 30s",
+    "schedule": "@every 45s",
     "timezone": "Asia/Jakarta",
     "owner": "Lintang Birda Saputra",
     "owner_email": "lintangbirdasaputra23@gmail.com",
