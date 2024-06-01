@@ -15,6 +15,20 @@ jadi port public container/swarm service yang kalian buat....
 6. pastikan conatainer yang akan anda buat, target portnya sesuai dengan port aplikasi yang berjalan di container (kalau image lintangbirdas/go_log:v1 portnya 8231)
 ```
 
+
+### Logic Metrics usage & billing 
+```
+misal gini: aku stop container 5 detik yang lalu, sedangkan last metrics 
+// yang terakhir dikiirm ke billing service itu 40 detik yang lalu, berarti ada 35 detik yang metrics container nya tidak terhitung
+// nah sedangkan pas container diterminate/di stop , last metrics nya disimpen ke tabel container-metrics
+// maka dari itu, biar kita bisa dapet ngurangin saldo user dari 35 detik waktu hidup container itu
+// aku cek apakah time.now() - terminatedTime  < 45 detik atau time.Now() - stoppedtime < 45 detik, kita ambil 
+// metrics dari tabel container-metrics terus kirim ke biling biar ngurang saldo nya utk metrics 35 detik itu
+// sedangkan jika  ime.now() - terminatedTime  > 45 detik atau time.Now() - stoppedtime > 45 detik, 
+// kita harus ngirimm metrics zero (angka 0 semua ) biar gak ngurang saldo usernya karna udah di stop lebih dari 45 detik yang lalu 
+// kan cron kita tiap 45 detik .... 
+```
+
 ##### setup docker
 
 ```
