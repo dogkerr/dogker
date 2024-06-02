@@ -32,9 +32,11 @@ isi filenya:
 
 {
    "metrics-addr": "0.0.0.0:9323",
-   "experimental": true
+   "experimental": true,
+   "mtu": 1300,
+   "exec-opts": ["native.cgroupdriver=systemd"] 
+}
 
-}do
 2. docker plugin install grafana/loki-docker-driver:2.9.4 --alias loki --grant-all-permissions
 3. sudo systemctl restart docker
 4. firewall allow port 9323/tcp

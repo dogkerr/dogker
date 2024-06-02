@@ -10,7 +10,7 @@ export let options = {
     stages: [
         { duration: '10s', target: 100}, // dari 0 virutalUser/second ke  4 virtualUser/second selama 30 detik
         { duration: '20s', target: 150},
-        { duration: '10s', target: 150},
+        { duration: '10s', target: 200},
     ],
     thresholds: {
         http_req_duration: ['p(99)<1000'], // 99% request harus kurang dari 1s
@@ -57,8 +57,8 @@ function getUrl(user_no) {
 }
 
 export default () => {
-    const userOneUrls = getUrl("8358");
-    const userTwoUrls = getUrl("8535");
+    const userOneUrls = getUrl("2211");
+    const userTwoUrls = getUrl("8786");
 
     const requests = {
         'user1_info': {

@@ -8,711 +8,6 @@
 	},
 	"item": [
 		{
-			"name": "containers_service",
-			"item": [
-				{
-					"name": "register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"fullname\": \"Lintang Birda Saputra23\",\n    \"email\": \"uyayiu12543@gmail.com\",\n    \"username\": \"lintan23g23\",\n    \"password\": \"LintangG123(\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://10.70.70.1:3001/users",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "3001",
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "login dogker",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const responseJson = pm.response.json();",
-									"var bodyToken = responseJson.data.accessToken;",
-									"pm.environment.set(\"dogker\", bodyToken)"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n      \"username\": \"lintang23\",\n    \"password\": \"LintangG123(\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://10.70.70.1:3001/authentications",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "3001",
-							"path": [
-								"authentications"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get user",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const responseJson = pm.response.json();",
-									"var bodyToken = responseJson.data.accessToken;",
-									"pm.environment.set(\"dogker\", bodyToken)"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://10.70.70.1:3001/users?id=774933c0-0bc1-4f2d-9377-e5f324324",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "3001",
-							"path": [
-								"users"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "774933c0-0bc1-4f2d-9377-e5f324324"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create container",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"go_lintang_coba_vp7\",\n    \"image\": \"lintangbirdas/go_log:v1\",\n    \"limit\": {\n        \"cpus\": 1000,\n        \"memory\": 500\n    },\n    \"replica\": 2,\n    \"endpoint\": [{\n        \"target_port\": 8231,\n        \"published_port\": 8353,\n        \"protocol\": \"tcp\"\n    }]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create container with upload",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "lintang_tesupload3",
-									"contentType": "multipart/form-data",
-									"type": "text"
-								},
-								{
-									"key": "labels",
-									"value": "",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "{\n        \"cpus\": 1000,\n        \"memory\": 500\n    }",
-									"contentType": "multipart/form-data",
-									"type": "text"
-								},
-								{
-									"key": "replica",
-									"value": "3",
-									"contentType": "multipart/form-data",
-									"type": "text"
-								},
-								{
-									"key": "endpoint",
-									"value": "[{\n        \"target_port\": 8231,\n        \"published_port\": 8727,\n        \"protocol\": \"tcp\"\n    }]",
-									"contentType": "multipart/form-data",
-									"type": "text"
-								},
-								{
-									"key": "imageName",
-									"value": "lintang_tes:v1",
-									"contentType": "multipart/form-data",
-									"type": "text"
-								},
-								{
-									"key": "image",
-									"contentType": "multipart/form-data",
-									"type": "file",
-									"src": "/home/lintangbs/Documents/semester_4/cloud/project/dogker/user-container.tar.gz"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers/upload",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"upload"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete service",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers/rw7tfm2qhh7w29qaqrwdvxyq0",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"rw7tfm2qhh7w29qaqrwdvxyq0"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all user containers",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get container",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers/12mao8tfwgkzi2umopuv0aj2i",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"12mao8tfwgkzi2umopuv0aj2i"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "start container",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers/70b2b3nq2kitnom6bw5lu6tfx/start",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"70b2b3nq2kitnom6bw5lu6tfx",
-								"start"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "stop service",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8888/api/v1/containers/dio735eyclmi0e0forill9du1/stop",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"dio735eyclmi0e0forill9du1",
-								"stop"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "horizontal scaling",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"replica\": 6\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers/12mao8tfwgkzi2umopuv0aj2i/scale",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"12mao8tfwgkzi2umopuv0aj2i",
-								"scale"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "schedule container stop",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"action\": \"STOP\",\n    \"scheduled_time\": 2,\n    \"time_format\": \"SECOND\"\n\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers/2lr1wdw4j3m1olvmmtwdmv35h/schedule",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"2lr1wdw4j3m1olvmmtwdmv35h",
-								"schedule"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "schedule container start",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"action\": \"START\",\n    \"scheduled_time\": 2,\n    \"time_format\": \"SECOND\"\n\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers/2lr1wdw4j3m1olvmmtwdmv35h/schedule",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"2lr1wdw4j3m1olvmmtwdmv35h",
-								"schedule"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "schedule container terminate",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"action\": \"TERMINATE\",\n    \"scheduled_time\": 2,\n    \"time_format\": \"SECOND\"\n\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers/txgc1mpg5iol7ufzgoxl63ryw/schedule",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"txgc1mpg5iol7ufzgoxl63ryw",
-								"schedule"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "schedule create container",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"action\": \"CREATE\",\n    \"scheduled_time\": 2,\n    \"time_format\": \"SECOND\",\n    \"container\": {\n        \"name\": \"go_lintang_lintang_hapus_nieh33\",\n        \"image\": \"lintangbirdas/go_log:v1\",\n        \"limit\": {\n            \"cpus\": 1000,\n            \"memory\": 500\n        },\n    \n        \"replica\": 3,\n        \"endpoint\": [{\n            \"target_port\": 8231,\n            \"published_port\": 8679,\n            \"protocol\": \"tcp\"\n     }]\n    }\n\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers/create/schedule",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"create",
-								"schedule"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update container",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{dogker}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"go_lintang_coba_vp7\",\n    \"image\": \"lintangbirdas/go_log:v1\",\n    \"limit\": {\n        \"cpus\": 2000,\n        \"memory\": 1000\n    },\n    \"replica\": 6,\n    \"endpoint\": [{\n        \"target_port\": 8231,\n        \"published_port\": 8331,\n        \"protocol\": \"tcp\"\n    }]\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://10.70.70.1:8888/api/v1/containers/12mao8tfwgkzi2umopuv0aj2i",
-							"protocol": "http",
-							"host": [
-								"10",
-								"70",
-								"70",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"api",
-								"v1",
-								"containers",
-								"12mao8tfwgkzi2umopuv0aj2i"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "New Folder",
 			"item": [
 				{
@@ -782,6 +77,1403 @@
 			]
 		},
 		{
+			"name": "billing-service",
+			"item": [
+				{
+					"name": "Deposits",
+					"item": [
+						{
+							"name": "Init Deposit",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{dogker}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuZHJlbmsjMiIsImlhdCI6MTcxMzE3MTQwMSwiZXhwIjoxNzEzMTcyMzAxLCJzdWIiOiI5MDVmNDkyMC04NWUyLTQ0NzUtODZlMS00ODU5YjEyMWQ1MjUifQ.dgfdsywRj-3S_E8pDt3b9m19CnI0KvG-nmLyb9kLIkNqsW6aKqTLj7FP8Z-ZUDcUAAa48YOygXuyBTDnh3vcyA"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\": 10000000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://dogker.alendra.dev:6969/api/v1/deposits/",
+									"protocol": "http",
+									"host": [
+										"dogker",
+										"alendra",
+										"dev"
+									],
+									"port": "6969",
+									"path": [
+										"api",
+										"v1",
+										"deposits",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Deposit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{dogker}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuZHJlbmsjMiIsImlhdCI6MTcxMzE1MzE3OCwiZXhwIjoxNzEzMTU0MDc4LCJzdWIiOiI5MDVmNDkyMC04NWUyLTQ0NzUtODZlMS00ODU5YjEyMWQ1MjUifQ.ohTYW9rmSocJTZ0sP-L2sT4aYwRYc_V29TuWZSuh3aopkujRa_LuJTZt7NtyUpH3Gx4a8kqmCmlGCTNolJc7og"
+									}
+								],
+								"url": {
+									"raw": "http://dogker.alendra.dev:6969/api/v1/deposits/4b81c26-41f0-4399-8dfc-969295bc48f0",
+									"protocol": "http",
+									"host": [
+										"dogker",
+										"alendra",
+										"dev"
+									],
+									"port": "6969",
+									"path": [
+										"api",
+										"v1",
+										"deposits",
+										"4b81c26-41f0-4399-8dfc-969295bc48f0"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Charges",
+					"item": [
+						{
+							"name": "Get Charge By ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{dogker}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://dogker.alendra.dev:6969/api/v1/charges/06a2d43a-74c1-41c3-8760-13ad1b993a7e",
+									"protocol": "http",
+									"host": [
+										"dogker",
+										"alendra",
+										"dev"
+									],
+									"port": "6969",
+									"path": [
+										"api",
+										"v1",
+										"charges",
+										"06a2d43a-74c1-41c3-8760-13ad1b993a7e"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mutations",
+					"item": [
+						{
+							"name": "Get Mutations",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{dogker}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://dogker.alendra.dev:6969/api/v1/mutations/",
+									"protocol": "http",
+									"host": [
+										"dogker",
+										"alendra",
+										"dev"
+									],
+									"port": "6969",
+									"path": [
+										"api",
+										"v1",
+										"mutations",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Mutation By ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{dogker}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://dogker.alendra.dev:6969/api/v1/mutations/6270f21b-fd08-4f81-a9b1-2d037b4972b6",
+									"protocol": "http",
+									"host": [
+										"dogker",
+										"alendra",
+										"dev"
+									],
+									"port": "6969",
+									"path": [
+										"api",
+										"v1",
+										"mutations",
+										"6270f21b-fd08-4f81-a9b1-2d037b4972b6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "containers_service",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Lintang Birda Saputra23\",\n    \"email\": \"lintangbirdasaputra23@gmail.com\",\n    \"username\": \"lintang23\",\n    \"password\": \"Lintang1(\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://103.175.219.0:3001/users",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "3001",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login dogker",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"var bodyToken = responseJson.data.accessToken;",
+									"pm.environment.set(\"dogker\", bodyToken)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"username\": \"lintang23\",\n    \"password\": \"Lintang1(\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://103.175.219.0:3001/authentications",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "3001",
+							"path": [
+								"authentications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"var bodyToken = responseJson.data.accessToken;",
+									"pm.environment.set(\"dogker\", bodyToken)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users?id=774933c0-0bc1-4f2d-9377-e5f324324",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "774933c0-0bc1-4f2d-9377-e5f324324"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create container",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"go_lintang_with_volumes_real\",\n    \"image\": \"lintangbirdas/go_log:v1\",\n    \"limit\": {\n        \"cpus\": 1000,\n        \"memory\": 500\n    },\n    \"volumes\": [\n        \"/var\"\n    ],\n    \"env\": [\n        \"APP_LEVEL=debug\"\n    ],\n    \"replica\": 2,\n    \"endpoint\": [{\n        \"target_port\": 8231,\n        \"published_port\": 8253,\n        \"protocol\": \"tcp\"\n    }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create container postgres",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"postgres_lintang\",\n    \"image\": \"postgres:14-alpine\",\n    \"limit\": {\n        \"cpus\": 1000,\n        \"memory\": 2000\n    },\n    \"volumes\": [\n        \"/var/lib/postgresql/data\"\n    ],\n    \"env\": [\n        \"POSTGRES_USER=admin\",\n        \"POSTGRES_PASSWORD=admin\",\n        \"POSTGRES_DB=dogker\"\n    ],\n    \"replica\": 1,\n    \"endpoint\": [{\n        \"target_port\": 5432,\n        \"published_port\": 5436,\n        \"protocol\": \"tcp\"\n    }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create container with upload",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "lintang_tesupload66",
+									"contentType": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "labels",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "{\n        \"cpus\": 1000,\n        \"memory\": 500\n    }",
+									"contentType": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "replica",
+									"value": "3",
+									"contentType": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "endpoint",
+									"value": "[{\n        \"target_port\": 8231,\n        \"published_port\": 8786,\n        \"protocol\": \"tcp\"\n    }]",
+									"contentType": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "imageName",
+									"value": "lintang_tes:v2",
+									"contentType": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"contentType": "multipart/form-data",
+									"type": "file",
+									"src": "postman-cloud:///1ef208f1-ce16-4380-8321-f1af96d81312"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers/upload",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers/hkpnr8g2m7dp4danwqb61eszn",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"hkpnr8g2m7dp4danwqb61eszn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all user containers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get container",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers/4wd88ft3f0wecdgeqcgnvd8jb",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"4wd88ft3f0wecdgeqcgnvd8jb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "start container",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers/6u6yo9p7hxzyxa4a9nz5h0cq4/start",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"6u6yo9p7hxzyxa4a9nz5h0cq4",
+								"start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stop service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers/472vp9hsn06327i5nmpm1j8yl/stop",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"472vp9hsn06327i5nmpm1j8yl",
+								"stop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "horizontal scaling",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"replica\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.70.70.1:8888/api/v1/containers/kivko1riydvikh6412kt8qdsu/scale",
+							"protocol": "http",
+							"host": [
+								"10",
+								"70",
+								"70",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"kivko1riydvikh6412kt8qdsu",
+								"scale"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "schedule container stop",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"STOP\",\n    \"scheduled_time\": 2,\n    \"time_format\": \"SECOND\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers/jdfc9h0lictld03ka1e58r4pd/schedule",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"jdfc9h0lictld03ka1e58r4pd",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "schedule container start",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"START\",\n    \"scheduled_time\": 2,\n    \"time_format\": \"SECOND\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers/6u6yo9p7hxzyxa4a9nz5h0cq4/schedule",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"6u6yo9p7hxzyxa4a9nz5h0cq4",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "schedule container terminate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"TERMINATE\",\n    \"scheduled_time\": 2,\n    \"time_format\": \"SECOND\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers/s08mjbxtmjeek2bwutkdkhupb/schedule",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"s08mjbxtmjeek2bwutkdkhupb",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "schedule create container",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"action\": \"CREATE\",\n    \"scheduled_time\": 2,\n    \"time_format\": \"SECOND\",\n    \"container\": {\n        \"name\": \"go_lintang_lintang_hapus_nieh33\",\n        \"image\": \"lintangbirdas/go_log:v1\",\n        \"limit\": {\n            \"cpus\": 1000,\n            \"memory\": 500\n        },\n    \n        \"replica\": 3,\n        \"endpoint\": [{\n            \"target_port\": 8231,\n            \"published_port\": 8699,\n            \"protocol\": \"tcp\"\n     }]\n    }\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers/create/schedule",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"create",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update container",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"go_lintang_coba_vp7\",\n    \"image\": \"lintangbirdas/go_log:v1\",\n    \"limit\": {\n        \"cpus\": 2000,\n        \"memory\": 1000\n    },\n    \"replica\": 6,\n    \"endpoint\": [{\n        \"target_port\": 8231,\n        \"published_port\": 8331,\n        \"protocol\": \"tcp\"\n    }]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.70.70.1:8888/api/v1/containers/12mao8tfwgkzi2umopuv0aj2i",
+							"protocol": "http",
+							"host": [
+								"10",
+								"70",
+								"70",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"12mao8tfwgkzi2umopuv0aj2i"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign Up",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Andreas Notokusumo #1\",\n    \"email\": \"andreasnotokusumo1@gmail.com\",\n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.70.70.1:3001/users",
+							"protocol": "http",
+							"host": [
+								"10",
+								"70",
+								"70",
+								"1"
+							],
+							"port": "3001",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sign Up",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fullname\": \"Andreas Notokusumo #2\",\n    \"email\": \"andreasnotokusumo1@gmail.com\",\n    \"username\": \"andrenk#2\",\n    \"password\": \"@ndr3nkd0gk3R\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/users",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 07:30:42 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "104"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"68-/eZHptbM4/VLAEpsVz3VmJd1lyU\""
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=vJSLjZ1yiEP7TuBRwprIHjNro8vyFB%2B%2B661CPuKxvvcwk%2F1NSGMhv%2F9ln6OjQLncoPPoO5Zd%2B8cgn9G7KtnmqvO%2By7lNEEXqb3OS4Xvt8c5WxnF1GGcaHuHLBDNrlbIDBvq9sbLnhxaJWQ%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "8741fdf71e6a24bf-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User registered successfully\",\n    \"data\": {\n        \"user\": {\n            \"id\": \"a615c892-9941-4557-9af3-492677b05877\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Log In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/authentications",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"authentications"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Log In",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"andrenk#2\",\n    \"password\": \"@ndr3nkd0gk3R\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/authentications",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"authentications"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 07:31:07 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "595"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"253-yGJhWNIHA8E1CRCLHNzT+KHB42M\""
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=KEoOU0dAX3So0RQNVUAH6GNC1508%2FktaCcvw4GUiisuWmWOnkEGfeYqzu%2FlfOSO5u3ZjK2pGx18YEfHdb4y8mU7z3q4y0hTAm3P%2BgVsorXzPL5inClERFWm6P4gH3Hf8FD2rvCFJDx6IFQ%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "8741fe902af524bf-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuZHJlbmsjMiIsImlhdCI6MTcxMzA3OTg2NywiZXhwIjoxNzEzMDgwNzY3LCJzdWIiOiJhNjE1Yzg5Mi05OTQxLTQ1NTctOWFmMy00OTI2NzdiMDU4NzcifQ.Dz1FspaLs1ZH12sVk1hRRwE6YLZC4ni1OfSLnQ591xgA1o2Y8VwyEQiAFBhCTztvCLUmUV8XTD0gvYdgzXf3KQ\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTMwNzk4NjcsImV4cCI6MTcxMzY4NDY2Nywic3ViIjoiYTYxNWM4OTItOTk0MS00NTU3LTlhZjMtNDkyNjc3YjA1ODc3IiwianRpIjoiZjcyYmIyODQtZjA2MC00ZGQ0LWJhZTMtNjJlMzdjODlmMzI2In0.rvQqLHT-1CEPhup-N6x73BdyodLM4Ll10i4uMg332ZI\"\n    }\n}"
+						},
+						{
+							"name": "Log In",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"{{Username}}\",\n    \"password\": \"{{Password}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/authentications",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"authentications"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 15 Apr 2024 04:09:10 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "595"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"253-+G2OYTMTlwLryEcQRg4jX2r5Kzg\""
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=XqIACmcz7fTq7xwQ47owh1R0yFCseIRDTXjMi9LeTeKpyT4bf8%2BRzdMjv6hfyZT%2Bm%2BLLmgX4qjQ7XpnXkrGCdNHxtoG%2BUlGP4ud9SW2trblmWCCSNBavtshlZ5f60U31WAibJ%2FMRX1H9Kw%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "8749141c8a1a04f3-HKG"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuZHJlbmsjMiIsImlhdCI6MTcxMzE1NDE1MCwiZXhwIjoxNzEzMTU1MDUwLCJzdWIiOiI5MDVmNDkyMC04NWUyLTQ0NzUtODZlMS00ODU5YjEyMWQ1MjUifQ.XGFIQMEA20XJ87N0yVhVJtfIDq4fH7m69-LFgl7gEOrn1qEm3py1v4DoC-n3I-dDwIRJP2Pfa0rxVfXcRzJEbg\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTMxNTQxNTAsImV4cCI6MTcxMzc1ODk1MCwic3ViIjoiOTA1ZjQ5MjAtODVlMi00NDc1LTg2ZTEtNDg1OWIxMjFkNTI1IiwianRpIjoiZTk0MGZmZWEtYjg2OS00ODdjLWE0NGMtNWM2ZmFkYmQzMDBiIn0.GMosU57XaKm6o0TBp50-5WodeQDS-TxjpIO-Vh7V2jM\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTMxNjYzMTUsImV4cCI6MTcxMzc3MTExNSwic3ViIjoiOTA1ZjQ5MjAtODVlMi00NDc1LTg2ZTEtNDg1OWIxMjFkNTI1IiwianRpIjoiODU2MzQ4OWYtN2FiZC00ZjI5LThkNTUtZGNhY2RjNGEyYmZmIn0.qRsvAosFuWJq1XfNAfxW7gXlEENL5LQ5eSuhuk1IkcQ\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL_AUTH_VPN}}/authentications",
+							"host": [
+								"{{BASE_URL_AUTH_VPN}}"
+							],
+							"path": [
+								"authentications"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Refresh Token",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTMwNzk4NjcsImV4cCI6MTcxMzY4NDY2Nywic3ViIjoiYTYxNWM4OTItOTk0MS00NTU3LTlhZjMtNDkyNjc3YjA1ODc3IiwianRpIjoiZjcyYmIyODQtZjA2MC00ZGQ0LWJhZTMtNjJlMzdjODlmMzI2In0.rvQqLHT-1CEPhup-N6x73BdyodLM4Ll10i4uMg332ZI\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/authentications",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"authentications"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 07:43:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"148-ghza8cg91orzsZ+SOJqyAgO5mfM\""
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=1UMsLXSwARN1lXsGPjHQPOBYN0CIfkV6Plof99HbbOv3Fz%2B%2BoSnmGHpNZw6RQGcu81mAmwco2mnxqlpqh6Ore6U%2Bkmg5KolRCV7FYDlGaGRLzIGghrkOt9zYzsUWh4ZYnazZ14RRJrnJgQ%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "8742104f0c423f82-SIN"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Token rotated successfully\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFuZHJlbmsjMiIsImlhdCI6MTcxMzA4MDU5MywiZXhwIjoxNzEzMDgxNDkzLCJzdWIiOiJhNjE1Yzg5Mi05OTQxLTQ1NTctOWFmMy00OTI2NzdiMDU4NzcifQ.uilQtUBt6x9g3mXLXKJ868-1ebvw9rAvSB8mTj_l07rpmBp-hYIklPjiV01kxJ3-Ehj_HzMxF3clI69fwuWX_Q\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "get logs dashboard",
 			"request": {
 				"auth": {
@@ -797,13 +1489,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://10.70.70.1:9191/api/v1/monitors/dashboards/logs",
+					"raw": "http://103.175.219.0:9191/api/v1/monitors/dashboards/logs",
 					"protocol": "http",
 					"host": [
-						"10",
-						"70",
-						"70",
-						"1"
+						"103",
+						"175",
+						"219",
+						"0"
 					],
 					"port": "9191",
 					"path": [
@@ -833,13 +1525,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://10.70.70.1:9191/api/v1/monitors/dashboards/monitors",
+					"raw": "http://103.175.219.0:9191/api/v1/monitors/dashboards/monitors",
 					"protocol": "http",
 					"host": [
-						"10",
-						"70",
-						"70",
-						"1"
+						"103",
+						"175",
+						"219",
+						"0"
 					],
 					"port": "9191",
 					"path": [
