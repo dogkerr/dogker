@@ -270,7 +270,7 @@ services:
 
   billing-service:
     container_name: billing-service
-    image: andrenk/billing-service:v1.1
+    image: lintangbirdas/billing-service-andre:v1
     deploy:
       resources:
         limits:
