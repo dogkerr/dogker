@@ -471,6 +471,49 @@
 					"response": []
 				},
 				{
+					"name": "create container without volumes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"go_lintang_with_volumes_real\",\n    \"image\": \"lintangbirdas/go_log:v1\",\n    \"limit\": {\n        \"cpus\": 1000,\n        \"memory\": 500\n    },\n    \"volumes\": [\n        \"/var\"\n    ],\n    \"env\": [\n        \"APP_LEVEL=debug\"\n    ],\n    \"replica\": 2,\n    \"endpoint\": [{\n        \"target_port\": 8231,\n        \"published_port\": 8253,\n        \"protocol\": \"tcp\"\n    }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "create container postgres",
 					"request": {
 						"auth": {
@@ -572,6 +615,98 @@
 									"contentType": "multipart/form-data",
 									"type": "file",
 									"src": "postman-cloud:///1ef208f1-ce16-4380-8321-f1af96d81312"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://103.175.219.0:8888/api/v1/containers/upload",
+							"protocol": "http",
+							"host": [
+								"103",
+								"175",
+								"219",
+								"0"
+							],
+							"port": "8888",
+							"path": [
+								"api",
+								"v1",
+								"containers",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create container with upload with volumes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{dogker}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "lintang_tesupload66",
+									"contentType": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "labels",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "{\n        \"cpus\": 1000,\n        \"memory\": 500\n    }",
+									"contentType": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "replica",
+									"value": "3",
+									"contentType": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "endpoint",
+									"value": "[{\n        \"target_port\": 8231,\n        \"published_port\": 8786,\n        \"protocol\": \"tcp\"\n    }]",
+									"contentType": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "imageName",
+									"value": "lintang_tes:v2",
+									"contentType": "multipart/form-data",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"contentType": "multipart/form-data",
+									"type": "file",
+									"src": "postman-cloud:///1ef208f1-ce16-4380-8321-f1af96d81312"
+								},
+								{
+									"key": "volumes",
+									"value": "[\n\"/var\"\n\n]",
+									"type": "text"
+								},
+								{
+									"key": "env",
+									"value": "[\n\"APP_LEVEL=debug\"\n\n]",
+									"type": "text"
 								}
 							]
 						},
