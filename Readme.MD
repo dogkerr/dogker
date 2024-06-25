@@ -1,3 +1,26 @@
+# dogker
+Dogker is a Platform as a Service (PaaS) that allows users to create and manage applications using Docker Swarm. By leveraging the power of container orchestration, Dogker simplifies the deployment, scaling, and management of containerized applications.
+
+# Architecture
+![arch dogkerr](https://res.cloudinary.com/dex4u3rw4/image/upload/v1719302806/dogkerr/Architecture_wcvrci.png)
+
+
+
+## Tech stack
+```
+docker engine,docker swarm, prometheus, loki, grafana, golang, nestjs, rabbitmq, grpc, dkron, postgres, & minio. 
+```
+
+## Anggota Kelompok 
+```
+Andreas Notokusumo (22/493183/PA/21167)
+Febriano Ahdan Nadif (22/493642/PA/21206)
+Alexander Adam Mukhaer (22/497621/PA/21436)
+David Lois (22/498373/PA/21509)
+Lintang Birda Saputra (22/505034/PA/21737)
+```
+
+
 ### Cara jalanin dogker microservices
 
 ### Notes
@@ -16,13 +39,6 @@ jadi port public container/swarm service yang kalian buat....
 ```
 
 
-### Logic Metrics usage & billing 
-```
-misal gini: aku stop container 5 detik yang lalu, sedangkan last metrics 
-// yang terakhir dikiirm ke billing service itu 40 detik yang lalu, berarti ada 35 detik yang metrics container nya tidak terhitung
-// nah mending pas stop container / terminate container aku kirim langsung metricsnya  ke billing (lewat monitor svc dulu terus monitor svc kirim messaage rabbitmq ke billing isinya metrics usage)
-// pas cron job send metrics, kita cek apakah container udah mati /termianted kalau iya ya gak usah kirim ke billing....
-```
 
 ##### setup docker
 
@@ -170,3 +186,8 @@ nama queue: monitor-billing
 
 1. kalau container-service & monitor service mati, tinggal ' docker compose -f stack-dogker_benar.yaml up -d' berkali kali aja sampai running karena emang startup golang lebih cepet dari postgres jadi golangnya belum sempet connect sama postgres
 2. jangan join docker swarm as manager node bikin error nanti kalo salah satu manager node mati
+
+### Dokumentasi
+
+https://drive.google.com/file/d/1nTg0TcBr3pPTEeQEFJ7UFq7fn0r7dLjw/view?usp=drive_link
+
